@@ -6,7 +6,10 @@ const Navegation = () => {
         <nav>
             <ul>
                 <li>
-                    <Link to="/">Products</Link>
+                    <Link to="/">Home</Link>
+                </li>
+                <li>
+                    <Link to="/products">Products</Link>
                 </li>
             </ul>
         </nav>

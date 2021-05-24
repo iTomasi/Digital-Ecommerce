@@ -1,10 +1,13 @@
 import React from "react";
+import {useHistory} from "react-router-dom";
 
 const DK_HEADER_RIGHT = () => {
+    const history = useHistory();
+
     return (
         <div className="right">
-            <button type="button">Sign In</button>
-            <button type="button">Sign Up</button>
+            <button type="button" onClick={() => history.push("/sign-in")}>Sign In</button>
+            <button type="button" onClick={() => history.push("/sign-up")}>Sign Up</button>
         </div>
     )
 };

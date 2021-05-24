@@ -1,0 +1,87 @@
+$FONT_SIZE: 20px;
+
+.iw_form {
+    background: #1f2833;
+    width: 95%;
+    max-width: 450px;
+    padding: 15px 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px auto;
+    text-align: center;
+    font-size: $FONT_SIZE;
+
+    .formSection {
+        margin-bottom: 20px;
+        width: 85%;
+
+        label {
+            display: block;
+            margin-bottom: 15px;
+        }
+
+        input {
+            background: #0b0c10;
+            color: #f9f9f9;
+            font-size: $FONT_SIZE;
+            border: none;
+            outline: none;
+            padding: 5px;
+            width: 100%;
+        }
+
+        .inputPassword {
+            background: #0b0c10;
+            padding: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            input {
+                padding: 0;
+                width: 85%;
+            }
+
+            i {
+                cursor: pointer;
+            }
+        }
+    }
+
+    .formFile {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        label {
+            margin-bottom: 0;
+            background: #66fcf1;
+            color: #000000;
+            padding: 5px;
+            border-radius: 3px;
+            cursor: pointer;
+        }
+    }
+
+    button[type="submit"] {
+        width: 80%;
+        min-height: 35px;
+        background: transparent;
+        border: 2px solid #66fcf1;
+        color: #f9f9f9;
+        outline: none;
+        cursor: pointer;
+        font-size: $FONT_SIZE;
+        transition-property: background, color;
+        transition-duration: 0.3s;
+    }
+
+    button[type="submit"]:hover {
+        background: #66fcf1;
+        color: #000000;
+        transition-property: background, color;
+        transition-duration: 0.3s;
+    }
+
+}
