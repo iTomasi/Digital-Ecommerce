@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import config from "../config/config";
+import Axios from "axios";
 import "./scss/form.scss";
 
 interface IShowPassword {
@@ -45,7 +46,7 @@ const Register = () => {
         }
     }
 
-    const sendingDatas = (e: React.FormEvent<HTMLFormElement>) => {
+    const sendingDatas = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const emailRegExp = new RegExp(/^[A-Za-z0-9_]+@[A-Za-z]+\.[A-Za-z]{2,3}$/g);
         const passwordRegExp = new RegExp(/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[\W])[A-Za-z0-9\W]{5,}$/g);
@@ -62,7 +63,16 @@ const Register = () => {
         else if (!passwordRegExp.test(password)) return console.log("your password must contains at less 5 characters and [upper and lower case, numbers and special characters]")
         else if (password !== confirm_password) return console.log("password not match")
 
-        console.log("waiting for back-end")
+        try {
+            const res = await Axios.post(config.HOST.BACK_END + "/auth/sign-up", formData);
+
+            console.log(res.data);
+        }
+        
+        catch(e) {
+            console.log(e);
+            console.log("sendingDatas() (Register) Error")
+        }
     }
 
     return (
