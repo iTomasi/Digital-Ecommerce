@@ -5,6 +5,15 @@ import jwt from "jsonwebtoken";
 import config from "../config/config";
 import bcrypt from "bcryptjs";
 
+export const GET_validateUserToken: Handler = (req, res) => {
+    const gettingUserDatas: any = req.user;
+    const user: any = gettingUserDatas.toObject();
+    delete user.password;
+    delete user.__v;
+
+    return res.json({token: user, auth: true})
+}
+
 export const POST_register: Handler = async (req, res) => {
     const { username, email, password, confirm_password } = req.body;
     let fileName: string = "";
