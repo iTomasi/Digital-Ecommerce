@@ -22,7 +22,10 @@ const Login = () => {
                 password: formData.get("password")
             }, {headers: {"Content-Type": "application/json"}});
 
-            console.log(res.data);
+            if (res.data.message !== "Logged") return console.log(res.data);
+
+            localStorage.setItem("token", res.data.token);
+            window.location.href = "/";
         }
 
         catch(e) {

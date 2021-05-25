@@ -1,5 +1,8 @@
-import React from 'react';
+import React, {useContext, useEffect} from 'react';
 import {Switch, Route} from "react-router-dom";
+
+// Context
+import UserContext from "./context/user/UserContext";
 
 // Components
 import Header from "./components/Header";
@@ -10,6 +13,14 @@ import Register from "./views/Register";
 import Login from "./views/Login";
 
 const App = () => {
+
+  const {isUserAuthenticated} = useContext(UserContext);
+
+  useEffect(() => {
+    isUserAuthenticated();
+    // eslint-disable-next-line
+  }, [])
+
   return (
     <>
     <Header/>

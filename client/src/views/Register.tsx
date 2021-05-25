@@ -1,4 +1,5 @@
 import React, {useState} from "react";
+import {useHistory} from "react-router-dom";
 import config from "../config/config";
 import Axios from "axios";
 import "./scss/form.scss";
@@ -9,6 +10,8 @@ interface IShowPassword {
 }
 
 const Register = () => {
+    const history = useHistory();
+
     const [showPassword, setShowPassword] = useState<IShowPassword>({
         password: false,
         confirm_password: false
@@ -66,7 +69,10 @@ const Register = () => {
         try {
             const res = await Axios.post(config.HOST.BACK_END + "/auth/sign-up", formData);
 
-            console.log(res.data);
+            if (res.data.message !== "Registered") return console.log(res.data);
+
+            history.push("/sign-in")
+
         }
         
         catch(e) {
