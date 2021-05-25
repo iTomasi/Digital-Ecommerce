@@ -1,4 +1,5 @@
 import { Handler } from 'express';
+import Product from '../models/Product';
 import fsPromises from 'fs';
 import path from 'path';
 
@@ -20,4 +21,10 @@ export const GET_picture: Handler = async (req, res) => {
 	} catch (e) {
 		res.send(e.message);
 	}
+};
+
+export const GET_products: Handler = async (req, res) => {
+	const products = await Product.find();
+
+	res.json(products);
 };
