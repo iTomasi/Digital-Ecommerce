@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import config from "../config/config";
+import Axios from "axios";
 import "./scss/form.scss";
 
 const Login = () => {
@@ -8,14 +9,26 @@ const Login = () => {
 
     const handlePassword = () => showPassword ? setShowPassword(false) : setShowPassword(true);
 
-    const loggin = (e: React.FormEvent<HTMLFormElement>) => {
+    const loggin = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
 
         if (!formData.get("username")) return console.log("Insert your username")
         else if (!formData.get("password")) return console.log("Insert your password")
 
-        console.log("Waiting for back-end");
+        try {
+            const res = await Axios.post(config.HOST.BACK_END + "/auth/sign-in", {
+                username: formData.get("username"),
+                password: formData.get("password")
+            }, {headers: {"Content-Type": "application/json"}});
+
+            console.log(res.data);
+        }
+
+        catch(e) {
+            console.log(e);
+            console.log("loggin() (Login.tsx) Error")
+        }
     }
 
     return (

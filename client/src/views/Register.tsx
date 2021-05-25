@@ -71,7 +71,8 @@ const Register = () => {
         
         catch(e) {
             console.log(e);
-            console.log("sendingDatas() (Register) Error")
+            console.log("sendingDatas() (Register.tsx) Error")
+
         }
     }
 
