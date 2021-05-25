@@ -5,6 +5,7 @@ import passport from "passport";
 import passport_jwt from "./passport/passport-jwt";
 
 // Routes
+import routePages from "./routes/pages.routes";
 import routeAuth from "./routes/auth.routes";
 
 const app = express();
@@ -16,6 +17,7 @@ app.use(express.json());
 app.use(express.urlencoded({extended: false}));
 app.use(passport.initialize());
 passport.use(passport_jwt);
+app.use("/", routePages);
 app.use("/auth", routeAuth);
 
 export {app, server}
