@@ -1,6 +1,8 @@
 import express from "express";
 import http from "http";
 import cors from "cors";
+import passport from "passport";
+import passport_jwt from "./passport/passport-jwt";
 
 // Routes
 import routeAuth from "./routes/auth.routes";
@@ -12,6 +14,8 @@ app.set("port", process.env.PORT || 4000);
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+app.use(passport.initialize());
+passport.use(passport_jwt);
 app.use("/auth", routeAuth);
 
 export {app, server}
