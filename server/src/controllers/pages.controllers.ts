@@ -1,23 +1,23 @@
-import {Handler} from "express";
-import fsPromises from "fs";
-import path from "path";
+import { Handler } from 'express';
+import fsPromises from 'fs';
+import path from 'path';
 
 const fs = fsPromises.promises;
 
 export const GET_picture: Handler = async (req, res) => {
-    const {folder, file} = req.query;
-    
-    if (!folder || !file) return res.send("use ?folder=foldername&file=filename");
+	const { folder, file } = req.query;
 
-    const publicFolderPath = "../../public";
+	if (!folder || !file) return res.send('use ?folder=foldername&file=filename');
 
-    try {
-        await fs.access(path.join(__dirname,`${publicFolderPath}/${folder}/${file}`))
+	const publicFolderPath = '../../public';
 
-        res.sendFile(path.join(__dirname, `${publicFolderPath}/${folder}/${file}`));
-    }
+	try {
+		await fs.access(
+			path.join(__dirname, `${publicFolderPath}/${folder}/${file}`)
+		);
 
-    catch(e) {
-        res.send(e.message);
-    }
-}
+		res.sendFile(path.join(__dirname, `${publicFolderPath}/${folder}/${file}`));
+	} catch (e) {
+		res.send(e.message);
+	}
+};

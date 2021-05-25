@@ -1,102 +1,105 @@
 .DK-header {
-    display: flex;
-    background: #1f2833;
-    height: 63px;
-    align-items: center;
-    text-align: center;
-    font-size: 20px;
+	display: flex;
+	background: #1f2833;
+	height: 63px;
+	align-items: center;
+	text-align: center;
+	font-size: 20px;
 
-    .left, .right {
-        width: 25%;
-    }
+	.left,
+	.right {
+		width: 25%;
+	}
 
-    nav {
-        width: 50%;
+	nav {
+		width: 50%;
 
-        ul {
-            list-style: none;
-            display: flex;
-            justify-content: space-evenly;
+		ul {
+			list-style: none;
+			display: flex;
+			justify-content: space-evenly;
 
-            li {
-                a {
-                    text-decoration: none;
-                    color: #f9f9f9;
-                }
+			li {
+				a {
+					text-decoration: none;
+					color: #f9f9f9;
+				}
 
-                a:hover {
-                    border-bottom: 2px solid #66fcf1;
-                    padding: 18px 0;
-                }
-            }
-        }
-    }
+				a:hover {
+					border-bottom: 2px solid #66fcf1;
+					padding: 18px 0;
+				}
+			}
+		}
+	}
 
-    .right {
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
+	.right {
+		display: flex;
+		justify-content: space-evenly;
+		align-items: center;
 
-        button {
-            font-size: 20px;
-            padding: 3px 10px;
-            border-radius: 3px;
-            cursor: pointer;
-            border: none;
-            outline: none;
-            background: #f9f9f9;
-            transition-property: background;
-            transition-duration: 0.3s;
-        }
+		button {
+			font-size: 20px;
+			padding: 3px 10px;
+			border-radius: 3px;
+			cursor: pointer;
+			border: none;
+			outline: none;
+			background: #f9f9f9;
+			transition-property: background;
+			transition-duration: 0.3s;
+		}
 
-        button:hover {
-            background: #cccfff;
-            transition-property: background;
-            transition-duration: 0.3s;
-        }
+		button:hover {
+			background: #cccfff;
+			transition-property: background;
+			transition-duration: 0.3s;
+		}
 
-        img {
-            width: 50px;
-            height: 50px;
-            border-radius: 1000px;
-        }
+		img {
+			width: 50px;
+			height: 50px;
+			border-radius: 1000px;
+		}
 
-        .setting {
-            position: relative;
+		.setting {
+			position: relative;
 
-            .i__cog {
-                font-size: 30px;
-                cursor: pointer;
-            }
+			.i__cog {
+				font-size: 30px;
+				cursor: pointer;
+			}
 
-            .options {
-                position: absolute;
-                top: 55px;
-                background: #1f2833;
-                display: flex;
-                flex-direction: column;
-                width: 150px;
-                right: 0;
+			.options {
+				position: absolute;
+				top: 55px;
+				background: #1f2833;
+				display: flex;
+				flex-direction: column;
+				width: 150px;
+				right: 0;
 
-                a, button {
-                    background: transparent;
-                    width: 100%;
-                    text-decoration: none;
-                    color: #f9f9f9;
-                    padding: 10px 0;
-                    cursor: pointer;
-                    transition-property: background, color;
-                    transition-duration: 0.3s;
-                    border-radius: 0;
-                }
+				a,
+				button {
+					background: transparent;
+					width: 100%;
+					text-decoration: none;
+					color: #f9f9f9;
+					padding: 10px 0;
+					cursor: pointer;
+					transition-property: background, color;
+					transition-duration: 0.3s;
+					border-radius: 0;
+				}
 
-                a:hover, button:hover {
-                    background: #66fcf1;
-                    color: #000000;
-                    transition-property: background, color;
-                    transition-duration: 0.3s;
-                }
-            }
-        }
-    }
+				a:hover,
+				button:hover {
+					background: #66fcf1;
+					color: #000000;
+					transition-property: background, color;
+					transition-duration: 0.3s;
+				}
+			}
+		}
+	}
 }
