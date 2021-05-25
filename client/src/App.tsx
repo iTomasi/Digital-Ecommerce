@@ -11,6 +11,7 @@ import Header from './components/Header';
 import Home from './views/Home';
 import Register from './views/Register';
 import Login from './views/Login';
+import Products from './views/Products';
 
 const App = () => {
 	const { isUserAuthenticated } = useContext(UserContext);
@@ -29,6 +30,7 @@ const App = () => {
 					<Route exact path="/" component={Home} />
 					<Route exact path="/sign-up" component={Register} />
 					<Route exact path="/sign-in" component={Login} />
+					<Route exact path="/products" component={Products} />
 				</Switch>
 			</div>
 		</>
