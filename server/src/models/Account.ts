@@ -12,7 +12,7 @@ const accountSchema = new Schema({
     username: {type: String},
     password: {type: String},
     email: {type: String},
-    rank: {type: Array},
+    rank: {type: Array, default: ["user"]},
     products: {type: Array}
 });
 
