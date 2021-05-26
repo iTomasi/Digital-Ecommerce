@@ -5,7 +5,7 @@ import './scss/productInfoBtns.scss';
 import ProductContext from '../../context/product/ProductContext';
 
 const ProductInfoBtns = () => {
-	const { productInfo } = useContext(ProductContext);
+	const { productInfo, productsToBuy } = useContext(ProductContext);
 
 	const handleBtnAddCart = () => {
 		console.log('btnAddCart Btn');
@@ -13,8 +13,7 @@ const ProductInfoBtns = () => {
 	};
 
 	const handleBtnBuyNow = () => {
-		console.log('btnBuyNow');
-		console.log(productInfo);
+		productsToBuy([productInfo])
 	};
 
 	return (

@@ -22,6 +22,8 @@ const ProductState = ({ children }: any) => {
 		img: '',
 	});
 
+	const [productsBuy, setProductsBuy] = useState<IProducts[]>([]);
+
 	const getProducts = async () => {
 		try {
 			const res = await Axios.get(config.HOST.BACK_END + '/products', {
@@ -51,6 +53,12 @@ const ProductState = ({ children }: any) => {
 		setProductInfo(filterProduct[0]);
 	};
 
+	const productsToBuy = (arr: IProducts[]) => {
+		if (arr[0] === undefined) return;
+
+		console.log(arr);
+	};
+
 	return (
 		<ProductContext.Provider
 			value={{
@@ -58,6 +66,8 @@ const ProductState = ({ children }: any) => {
 				getProducts,
 				productInfo,
 				getProductById,
+				productsBuy,
+				productsToBuy,
 			}}
 		>
 			{children}
