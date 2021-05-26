@@ -5,8 +5,8 @@ interface IProduct extends Document {
 	name_lower: string;
 	description: string;
 	price: number;
-	productImg: string;
-	productFile: string;
+	img: string;
+	file: string;
 }
 
 const productSchema = new Schema({
@@ -14,7 +14,7 @@ const productSchema = new Schema({
 	name_lower: {type: String},
 	description: { type: String },
 	price: { type: Number },
-	productImg: { type: String },
+	img: { type: String },
 	file: { type: String },
 });
 

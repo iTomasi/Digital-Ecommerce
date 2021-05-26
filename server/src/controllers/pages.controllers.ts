@@ -26,5 +26,15 @@ export const GET_picture: Handler = async (req, res) => {
 export const GET_products: Handler = async (req, res) => {
 	const products = await Product.find();
 
-	res.json(products);
+	const productsMap = products.map((product: any) => {
+		return {
+			_id: product.id,
+			name: product.name,
+			description: product.description,
+			price: product.price,
+			img: product.img,
+		};
+	});
+
+	res.json(productsMap);
 };

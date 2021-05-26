@@ -50,8 +50,8 @@ export const POST_addProduct: Handler = async (req, res) => {
 			name_lower: product_name.toLowerCase(),
 			description: product_description,
 			price: product_price,
-			productImg: fileName_img,
-			productFile: fileName_file,
+			img: fileName_img,
+			file: fileName_file,
 		}).save();
 
 		res.json({ message: 'Product added successfully' });
