@@ -14,6 +14,7 @@ import Login from './views/Login';
 import Products from './views/Products';
 import AddProduct from "./views/AddProduct";
 import ProductInfo from "./views/ProductInfo";
+import CheckoutForm from "./views/CheckoutForm";
 
 const App = () => {
 	const { isUserAuthenticated } = useContext(UserContext);
@@ -35,6 +36,7 @@ const App = () => {
 					<Route exact path="/products" component={Products} />
 					<Route exact path="/admin/add-product" component={AddProduct}/>
 					<Route exact path="/product/:id" component={ProductInfo}/>
+					<Route exact path="/checkout" component={CheckoutForm}/>
 				</Switch>
 			</div>
 		</>

@@ -21,6 +21,7 @@ client/.env.production.local
 client/npm-debug.log*
 client/yarn-debug.log*
 client/yarn-error.log*
+client/.env
 
 # NODEJS (BACK_END)
 server/node_modules
