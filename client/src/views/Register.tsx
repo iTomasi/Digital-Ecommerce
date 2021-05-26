@@ -17,7 +17,7 @@ const Register = () => {
 		confirm_password: false,
 	});
 
-	const [fileName, setFileName] = useState<string>('Select an IMG...');
+	const [fileName, setFileName] = useState<string>('Select an IMG');
 
 	const handlePassword = (e: any) => {
 		const getInputName = e.currentTarget.previousElementSibling.name;
@@ -43,10 +43,10 @@ const Register = () => {
 			}
 
 			e.currentTarget.value = null;
-			setFileName('Select an IMG...');
+			setFileName('Select an IMG');
 			console.log('Your profile img should be an img..');
 		} catch (e) {
-			setFileName('Select an IMG...');
+			setFileName('Select an IMG');
 		}
 	};
 

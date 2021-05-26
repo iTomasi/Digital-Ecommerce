@@ -4,13 +4,15 @@ interface IProduct extends Document {
 	name: string;
 	description: string;
 	price: number;
-	file: string;
+	productImg: string;
+	productFile: string;
 }
 
 const productSchema = new Schema({
 	name: { type: String },
 	description: { type: String },
 	price: { type: Number },
+	productImg: { type: String },
 	file: { type: String },
 });
 

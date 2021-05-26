@@ -21,7 +21,7 @@ $FONT_SIZE: 20px;
 			margin-bottom: 15px;
 		}
 
-		input {
+		input, textarea {
 			background: #0b0c10;
 			color: #f9f9f9;
 			font-size: $FONT_SIZE;
@@ -29,6 +29,11 @@ $FONT_SIZE: 20px;
 			outline: none;
 			padding: 5px;
 			width: 100%;
+		}
+
+		textarea {
+			resize: none;
+			min-height: 100px;
 		}
 
 		.inputPassword {
