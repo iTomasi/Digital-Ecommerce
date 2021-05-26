@@ -79,7 +79,7 @@ const AddProduct = () => {
 			console.log(res.data);
 		} catch (e) {
 			console.log(e);
-			console.log('AddProduct() axios Error probably server offline.');
+			console.log('AddProduct() axios Error probably not admin rank or server offline.');
 		}
 	};
 

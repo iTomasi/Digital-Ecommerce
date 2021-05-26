@@ -7,7 +7,7 @@ export default async (file: string) => {
 	if (file === 'default.jpg') return;
 
 	try {
-		await fs.unlink(path.join(__dirname + '../../public/users/' + file));
+		await fs.unlink(path.join(__dirname, '../../public/users/' + file));
 	} catch (e) {
 		console.log(e);
 		console.log('removeUserImg() Error');

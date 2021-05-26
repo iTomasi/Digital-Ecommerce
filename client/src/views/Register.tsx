@@ -9,6 +9,11 @@ interface IShowPassword {
 	confirm_password: boolean;
 }
 
+interface IUploadPercentage {
+	display: boolean;
+	percentage: number;
+}
+
 const Register = () => {
 	const history = useHistory();
 
@@ -18,6 +23,11 @@ const Register = () => {
 	});
 
 	const [fileName, setFileName] = useState<string>('Select an IMG');
+
+	const [uploadPercentage, setUploadPercentage] = useState<IUploadPercentage>({
+		display: false,
+		percentage: 0,
+	});
 
 	const handlePassword = (e: any) => {
 		const getInputName = e.currentTarget.previousElementSibling.name;
@@ -77,7 +87,26 @@ const Register = () => {
 		try {
 			const res = await Axios.post(
 				config.HOST.BACK_END + '/auth/sign-up',
-				formData
+				formData,
+				{
+					onUploadProgress: (e) => {
+						const progressPercentage = Math.round((e.loaded * 100) / e.total);
+
+						if (!uploadPercentage.display) {
+							setUploadPercentage((prev: any) => ({
+								...prev,
+								display: true,
+								percentage: progressPercentage,
+							}));
+							return;
+						}
+
+						setUploadPercentage((prev: any) => ({
+							...prev,
+							percentage: progressPercentage,
+						}));
+					},
+				}
 			);
 
 			if (res.data.message !== 'Registered') return console.log(res.data);
@@ -139,20 +168,34 @@ const Register = () => {
 				</div>
 			</div>
 
-			<div className="formSection formFile">
-				<label htmlFor="inputFile">IMG</label>
-				<span>
-					{fileName.length >= 13 && fileName !== 'Select an IMG'
-						? fileName.substring(0, 13) + '...'
-						: fileName}
-				</span>
-				<input
-					id="inputFile"
-					type="file"
-					name="userImg"
-					onChange={handleInputFile}
-					style={{ display: 'none' }}
-				/>
+			<div className="formSection">
+				<div className="formFile">
+					<label htmlFor="inputFile">IMG</label>
+					<span>
+						{fileName.length >= 13 && fileName !== 'Select an IMG'
+							? fileName.substring(0, 13) + '...'
+							: fileName}
+					</span>
+					<input
+						id="inputFile"
+						type="file"
+						name="userImg"
+						onChange={handleInputFile}
+						style={{ display: 'none' }}
+					/>
+				</div>
+			</div>
+
+			<div
+				className="formPercentage"
+				style={{ display: uploadPercentage.display ? 'block' : 'none' }}
+			>
+				<div className="bar">
+					<div
+						className="current"
+						style={{ width: `${uploadPercentage.percentage}%` }}
+					></div>
+				</div>
 			</div>
 
 			<button type="submit">Register</button>
