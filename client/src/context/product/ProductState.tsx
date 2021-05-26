@@ -41,7 +41,10 @@ const ProductState = ({ children }: any) => {
 		const filterProduct = products.filter((product: any) => product._id === id);
 
 		if (filterProduct[0] === undefined) {
-			console.log('No product by id found');
+			setProductInfo((prev: any) => ({
+				...prev,
+				_id: '0',
+			}));
 			return;
 		}
 

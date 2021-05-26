@@ -1,0 +1,27 @@
+.productInfoDescription {
+    text-align: center;
+    padding: 10px 0;
+    width: 85%;
+
+    .name, .description, .price {
+        margin-bottom: 10px;
+    }
+
+    .name {
+        font-size: 25px;
+    }
+
+    .description {
+        font-size: 20px;
+    }
+
+    .price {
+        font-size: 20px;
+    }
+}
+
+@media screen and (min-width: 650px) {
+    .productInfoDescription {
+        width: 100%;
+    }
+}

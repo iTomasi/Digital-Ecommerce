@@ -1,0 +1,21 @@
+.productInfo {
+    width: 95%;
+    margin: auto;
+
+    .productInfo__content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: #1f2833;
+    }
+}
+
+@media screen and (min-width: 650px) {
+    .productInfo {
+        max-width: 900px;
+
+        .productInfo__content {
+            flex-direction: row;
+        }
+    }
+}

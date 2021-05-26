@@ -1,0 +1,15 @@
+.productInfoImg {
+	max-width: 350px;
+	background: Red;
+
+	img {
+		width: 100%;
+		height: auto;
+	}
+}
+
+@media screen and (min-width: 650px) {
+	.productInfoImg {
+		display: flex;
+	}
+}
