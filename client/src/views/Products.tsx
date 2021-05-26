@@ -20,42 +20,11 @@ const Products = () => {
 	return (
 		<div className="products">
 			<div className="grid">
-				<ProductCard
-					id={'0'}
-					name="Clean Code"
-					img="clean_code.jpg"
-					price={13}
-				/>
-				<ProductCard
-					id={'0'}
-					name="Clean Code"
-					img="clean_code.jpg"
-					price={13}
-				/>
-				<ProductCard
-					id={'0'}
-					name="Clean Code"
-					img="clean_code.jpg"
-					price={13}
-				/>
-                <ProductCard
-					id={'0'}
-					name="Clean Code"
-					img="clean_code.jpg"
-					price={13}
-				/>
-                <ProductCard
-					id={'0'}
-					name="Clean Code"
-					img="clean_code.jpg"
-					price={13}
-				/>
-                <ProductCard
-					id={'0'}
-					name="Clean Code"
-					img="clean_code.jpg"
-					price={13}
-				/>
+				{
+					products.map((product: any, index: any) => (
+						<ProductCard key={index} id={product._id} name={product.name} price={product.price} img={product.img} />
+					))
+				}
 			</div>
 		</div>
 	);

@@ -1,4 +1,5 @@
 import React from 'react';
+import {useHistory} from "react-router-dom";
 import config from '../../config/config';
 import "./scss/productCard.scss";
 
@@ -10,6 +11,8 @@ interface IProductCardProps {
 }
 
 const ProductCard = ({ id, name, price, img }: IProductCardProps) => {
+	const history = useHistory();
+
 	return (
 		<div className="productCard">
 			<img
@@ -19,7 +22,7 @@ const ProductCard = ({ id, name, price, img }: IProductCardProps) => {
 
 			<div className="info">
 				<h3>${price}</h3>
-				<button type="button">Info</button>
+				<button type="button" onClick={() => history.push("/product/" + id)}>Info</button>
 			</div>
 		</div>
 	);

@@ -4,7 +4,7 @@ import config from '../../config/config';
 import Axios from 'axios';
 
 interface IProducts {
-	id: string;
+	_id: string;
 	name: string;
 	description: string;
 	price: number;
@@ -13,6 +13,14 @@ interface IProducts {
 
 const ProductState = ({ children }: any) => {
 	const [products, setProducts] = useState<IProducts[]>([]);
+
+	const [productInfo, setProductInfo] = useState<IProducts>({
+		_id: '0',
+		name: '',
+		description: '',
+		price: 0,
+		img: '',
+	});
 
 	const getProducts = async () => {
 		try {
@@ -29,11 +37,24 @@ const ProductState = ({ children }: any) => {
 		}
 	};
 
+	const getProductById = (id: string) => {
+		const filterProduct = products.filter((product: any) => product._id === id);
+
+		if (filterProduct[0] === undefined) {
+			console.log('No product by id found');
+			return;
+		}
+
+		setProductInfo(filterProduct[0]);
+	};
+
 	return (
 		<ProductContext.Provider
 			value={{
 				products,
 				getProducts,
+				productInfo,
+				getProductById,
 			}}
 		>
 			{children}
