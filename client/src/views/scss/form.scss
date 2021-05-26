@@ -52,22 +52,43 @@ $FONT_SIZE: 20px;
 				cursor: pointer;
 			}
 		}
-	}
 
-	.formFile {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-
-		label {
-			margin-bottom: 0;
-			background: #66fcf1;
-			color: #000000;
-			padding: 5px;
-			border-radius: 3px;
-			cursor: pointer;
+		.formFile {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+	
+			label {
+				margin-bottom: 0;
+				background: #66fcf1;
+				color: #000000;
+				padding: 5px;
+				border-radius: 3px;
+				cursor: pointer;
+			}
 		}
 	}
+
+	.formPercentage {
+		width: 90%;
+		margin-bottom: 15px;
+
+		.bar {
+			background: #0b0c10;
+			width: 100%;
+			height: 20px;
+			border-radius: 1000px;
+
+			.current {
+				background: #66fcf1;
+				width: 0;
+				height: 100%;
+				border-radius: 1000px;
+			}
+		}
+	}
+
+	
 
 	button[type='submit'] {
 		width: 80%;

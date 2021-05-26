@@ -53,14 +53,14 @@ export const POST_register: Handler = async (req, res) => {
 	}
 
 	try {
-		const user = await Account.findOne().or([{ username }, { email }]);
+		const user = await Account.findOne().or([{ username_lower: username.toLowerCase() }, { email: email.toLowerCase() }]);
 
 		if (user) {
-			if (user.username === username) {
+			if (user.username_lower === username.toLowerCase()) {
 				await removeUserImg(fileName);
 				res.json({ message: 'Username already registered' });
 				return;
-			} else if (user.email.toLowerCase() === email.toLowerCase()) {
+			} else if (user.email === email.toLowerCase()) {
 				await removeUserImg(fileName);
 				res.json({ message: 'Email already registered' });
 				return;
@@ -72,6 +72,7 @@ export const POST_register: Handler = async (req, res) => {
 
 		await new Account({
 			username,
+			username_lower: username.toLowerCase(),
 			password: hash,
 			email: email.toLowerCase(),
 			img: fileName,
