@@ -1,12 +1,12 @@
-import React, {useContext, useRef} from 'react';
+import React, { useContext, useRef } from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { StripeCardElementOptions } from '@stripe/stripe-js';
-import config from "../../config/config";
-import Axios from "axios";
+import config from '../../config/config';
+import Axios from 'axios';
 import './scss/form.scss';
 
 // Context
-import ProductContext from "../../context/product/ProductContext";
+import ProductContext from '../../context/product/ProductContext';
 
 const cardElement_Options: StripeCardElementOptions = {
 	iconStyle: 'solid',
@@ -22,21 +22,19 @@ const cardElement_Options: StripeCardElementOptions = {
 const Form = () => {
 	const stripe: any = useStripe();
 	const elements: any = useElements();
-	const {productsBuy} = useContext(ProductContext);
+	const { productsBuy } = useContext(ProductContext);
 
 	const addingProductPrice = () => {
 		let count = 0;
 
 		for (let i = 0; i < productsBuy.length; i++) {
-			count += productsBuy[i].price
-		};
+			count += productsBuy[i].price;
+		}
 
-		return count
-	}
+		return count;
+	};
 
-	const totalPrice = useRef(addingProductPrice())
-
-	
+	const totalPrice = useRef(addingProductPrice());
 
 	const handleForm = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
@@ -51,19 +49,28 @@ const Form = () => {
 			return console.log(error);
 		}
 
-		const res = await Axios.post(config.HOST.BACK_END + "/payment/purchase-products", {
-			paymentID: paymentMethod.id,
-			clientName: formData.get("name"),
-			amount: (totalPrice.current * 100),
-			products: productsBuy
-		}, {
-			headers: {
-				"Content-Type": "application/json",
-				"Authorization": `Bearer ${localStorage.getItem("token")}`
-			}
-		});
+		try {
+			const res = await Axios.post(
+				config.HOST.BACK_END + '/payment/purchase-products',
+				{
+					paymentID: paymentMethod.id,
+					clientName: formData.get('name'),
+					amount: totalPrice.current,
+					products: productsBuy,
+				},
+				{
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: `Bearer ${localStorage.getItem('token')}`,
+					},
+				}
+			);
 
-		console.log(res.data);
+			console.log(res.data);
+		} catch (e) {
+			console.log(e);
+			console.log('handleForm() Error');
+		}
 	};
 
 	return (
@@ -80,7 +87,9 @@ const Form = () => {
 				/>
 			</div>
 
-			<button type="submit">Pay {totalPrice.current} {config.CURRENCY["USD"]}</button>
+			<button type="submit">
+				Pay {totalPrice.current} {config.CURRENCY['USD']}
+			</button>
 		</form>
 	);
 };
