@@ -21,7 +21,7 @@ const ProductCard = ({ id, name, price, img }: IProductCardProps) => {
 			/>
 
 			<div className="info">
-				<h3>${price}</h3>
+				<h3>${price} {config.CURRENCY["USD"]}</h3>
 				<button type="button" onClick={() => history.push("/product/" + id)}>Info</button>
 			</div>
 		</div>

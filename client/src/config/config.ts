@@ -7,4 +7,7 @@ export default {
 	HOST: {
 		BACK_END: 'http://localhost:4000',
 	},
+	CURRENCY: {
+		USD: "USD"
+	}
 };

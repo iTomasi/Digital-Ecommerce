@@ -9,6 +9,7 @@ import passport_jwt_admin from './passport/passport_jwt_admin';
 import routePages from './routes/pages.routes';
 import routeAuth from './routes/auth.routes';
 import routeAdmin from './routes/admin.routes';
+import routePayment from "./routes/payment.routes";
 
 const app = express();
 const server = http.createServer(app);
@@ -23,5 +24,6 @@ passport.use('jwt_admin', passport_jwt_admin);
 app.use('/', routePages);
 app.use('/auth', routeAuth);
 app.use('/admin', routeAdmin);
+app.use("/payment", routePayment);
 
 export { app, server };

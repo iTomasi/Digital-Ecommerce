@@ -1,7 +1,12 @@
-import React from 'react';
+import React, {useContext, useRef} from 'react';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { StripeCardElementOptions } from '@stripe/stripe-js';
+import config from "../../config/config";
+import Axios from "axios";
 import './scss/form.scss';
+
+// Context
+import ProductContext from "../../context/product/ProductContext";
 
 const cardElement_Options: StripeCardElementOptions = {
 	iconStyle: 'solid',
@@ -17,9 +22,25 @@ const cardElement_Options: StripeCardElementOptions = {
 const Form = () => {
 	const stripe: any = useStripe();
 	const elements: any = useElements();
+	const {productsBuy} = useContext(ProductContext);
+
+	const addingProductPrice = () => {
+		let count = 0;
+
+		for (let i = 0; i < productsBuy.length; i++) {
+			count += productsBuy[i].price
+		};
+
+		return count
+	}
+
+	const totalPrice = useRef(addingProductPrice())
+
+	
 
 	const handleForm = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+		const formData = new FormData(e.currentTarget);
 
 		const { error, paymentMethod } = await stripe.createPaymentMethod({
 			type: 'card',
@@ -30,7 +51,19 @@ const Form = () => {
 			return console.log(error);
 		}
 
-		console.log(paymentMethod);
+		const res = await Axios.post(config.HOST.BACK_END + "/payment/purchase-products", {
+			paymentID: paymentMethod.id,
+			clientName: formData.get("name"),
+			amount: (totalPrice.current * 100),
+			products: productsBuy
+		}, {
+			headers: {
+				"Content-Type": "application/json",
+				"Authorization": `Bearer ${localStorage.getItem("token")}`
+			}
+		});
+
+		console.log(res.data);
 	};
 
 	return (
@@ -47,7 +80,7 @@ const Form = () => {
 				/>
 			</div>
 
-			<button type="submit">Pay 40 USD</button>
+			<button type="submit">Pay {totalPrice.current} {config.CURRENCY["USD"]}</button>
 		</form>
 	);
 };

@@ -15,6 +15,7 @@ const AdminRoute = ({ component: Component, ...rest }: any) => {
 					return <Component {...props} />;
 				}
 
+                localStorage.setItem("private", "true")
 				return <Redirect to="/" />;
 			}}
 		/>
