@@ -56,7 +56,7 @@ const ProductState = ({ children }: any) => {
 	const productsToBuy = (arr: IProducts[]) => {
 		if (arr[0] === undefined) return;
 
-		console.log(arr);
+		setProductsBuy(arr);
 	};
 
 	return (

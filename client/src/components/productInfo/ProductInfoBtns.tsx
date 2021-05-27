@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
+import {useHistory} from "react-router-dom";
 import './scss/productInfoBtns.scss';
 
 // Context
 import ProductContext from '../../context/product/ProductContext';
 
 const ProductInfoBtns = () => {
+	const history = useHistory();
 	const { productInfo, productsToBuy } = useContext(ProductContext);
 
 	const handleBtnAddCart = () => {
@@ -13,7 +15,8 @@ const ProductInfoBtns = () => {
 	};
 
 	const handleBtnBuyNow = () => {
-		productsToBuy([productInfo])
+		productsToBuy([productInfo]);
+		history.push("/checkout");
 	};
 
 	return (

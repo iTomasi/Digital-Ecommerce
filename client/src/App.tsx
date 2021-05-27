@@ -1,8 +1,9 @@
 import React, { useContext, useEffect } from 'react';
-import { Switch, Route } from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 
 // Context
 import UserContext from './context/user/UserContext';
+import ProductContext from './context/product/ProductContext';
 
 // Components
 import Header from './components/Header';
@@ -12,12 +13,18 @@ import Home from './views/Home';
 import Register from './views/Register';
 import Login from './views/Login';
 import Products from './views/Products';
-import AddProduct from "./views/AddProduct";
-import ProductInfo from "./views/ProductInfo";
-import CheckoutForm from "./views/CheckoutForm";
+import AddProduct from './views/AddProduct';
+import ProductInfo from './views/ProductInfo';
+import CheckoutForm from './views/CheckoutForm';
+
+// Routes
+import UserRoute from './routes/UserRoute.routes';
+import AuthRoute from "./routes/AuthRoute.routes";
+import AdminRoute from "./routes/AdminRoute.routes";
 
 const App = () => {
-	const { isUserAuthenticated } = useContext(UserContext);
+	const { isUserAuthenticated, userDatas } = useContext(UserContext);
+	const { productsBuy } = useContext(ProductContext);
 
 	useEffect(() => {
 		isUserAuthenticated();
@@ -31,12 +38,26 @@ const App = () => {
 			<div className="content">
 				<Switch>
 					<Route exact path="/" component={Home} />
-					<Route exact path="/sign-up" component={Register} />
-					<Route exact path="/sign-in" component={Login} />
-					<Route exact path="/products" component={Products} />
-					<Route exact path="/admin/add-product" component={AddProduct}/>
-					<Route exact path="/product/:id" component={ProductInfo}/>
-					<Route exact path="/checkout" component={CheckoutForm}/>
+
+					<AuthRoute exact path="/sign-up" component={Register}/>
+					<AuthRoute exact path="/sign-in" component={Login}/>
+
+					<UserRoute exact path="/products" component={Products} />
+					<UserRoute exact path="/product/:id" component={ProductInfo} />
+
+					<AdminRoute exact path="/admin/add-product" component={AddProduct} />
+
+					<Route
+						exact
+						path="/checkout"
+						render={() => {
+							if (productsBuy[0] !== undefined && userDatas.auth) {
+								return <CheckoutForm />;
+							}
+
+							return <Redirect to="/" />;
+						}}
+					/>
 				</Switch>
 			</div>
 		</>

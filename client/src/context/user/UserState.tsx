@@ -22,7 +22,7 @@ const UserState = ({ children }: any) => {
 			username: '',
 			email: '',
 			img: '',
-			rank: [],
+			rank: ['admin'],
 			products: [],
 		},
 		auth: true,
@@ -41,6 +41,10 @@ const UserState = ({ children }: any) => {
 			console.log('No authenticated');
 			setUserDatas((prev: any) => ({
 				...prev,
+				token: {
+					...prev.token,
+					rank: [],
+				},
 				auth: false,
 			}));
 		}
