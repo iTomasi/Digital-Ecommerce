@@ -1,0 +1,24 @@
+.myProducts {
+	.grid {
+		display: grid;
+		grid-template-columns: repeat(2, 45%);
+		justify-content: center;
+		gap: 20px;
+	}
+}
+
+@media screen and (min-width: 550px) {
+	.myProducts {
+		.grid {
+			grid-template-columns: repeat(3, 30%);
+		}
+	}
+}
+
+@media screen and (min-width: 1000px) {
+	.myProducts {
+		.grid {
+			grid-template-columns: repeat(4, 22%);
+		}
+	}
+}

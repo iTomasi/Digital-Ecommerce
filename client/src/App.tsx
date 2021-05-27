@@ -16,11 +16,12 @@ import Products from './views/Products';
 import AddProduct from './views/AddProduct';
 import ProductInfo from './views/ProductInfo';
 import CheckoutForm from './views/CheckoutForm';
+import MyProducts from './views/MyProducts';
 
 // Routes
 import UserRoute from './routes/UserRoute.routes';
-import AuthRoute from "./routes/AuthRoute.routes";
-import AdminRoute from "./routes/AdminRoute.routes";
+import AuthRoute from './routes/AuthRoute.routes';
+import AdminRoute from './routes/AdminRoute.routes';
 
 const App = () => {
 	const { isUserAuthenticated, userDatas } = useContext(UserContext);
@@ -39,11 +40,12 @@ const App = () => {
 				<Switch>
 					<Route exact path="/" component={Home} />
 
-					<AuthRoute exact path="/sign-up" component={Register}/>
-					<AuthRoute exact path="/sign-in" component={Login}/>
+					<AuthRoute exact path="/sign-up" component={Register} />
+					<AuthRoute exact path="/sign-in" component={Login} />
 
 					<UserRoute exact path="/products" component={Products} />
 					<UserRoute exact path="/product/:id" component={ProductInfo} />
+					<UserRoute exact path="/my-products" component={MyProducts} />
 
 					<AdminRoute exact path="/admin/add-product" component={AddProduct} />
 

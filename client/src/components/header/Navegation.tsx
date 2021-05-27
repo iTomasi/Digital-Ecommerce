@@ -11,6 +11,9 @@ const Navegation = () => {
 				<li>
 					<Link to="/products">Products</Link>
 				</li>
+				<li>
+					<Link to="/my-products">My Products</Link>
+				</li>
 			</ul>
 		</nav>
 	);

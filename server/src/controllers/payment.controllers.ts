@@ -40,12 +40,13 @@ export const POST_product: Handler = async (req, res) => {
 
 			if (filterProduct[0] === undefined) {
 				return res.json({ message: 'Maybe you are editing the products' });
-			}
+			} else if (user?.products[0] !== undefined) {
+				const userHaveThisItem = user?.products.includes(productID);
 
-			else if (user?.products[0] !== undefined) {
-				const userHaveThisItem =  user?.products.includes(productID);
-
-				if (userHaveThisItem) return res.json({message: "You already have this product: " + products[i].name})
+				if (userHaveThisItem)
+					return res.json({
+						message: 'You already have this product: ' + products[i].name,
+					});
 			}
 
 			countPrice += filterProduct[0].price;
@@ -65,7 +66,7 @@ export const POST_product: Handler = async (req, res) => {
 			confirm: true,
 		});
 
-		productsID.map((product: any) => user?.products.push(product))
+		productsID.map((product: any) => user?.products.push(product));
 		await user?.save();
 
 		res.json({ message: 'Purchase made satisfactorily' });
