@@ -1,6 +1,7 @@
 import { Handler } from 'express';
 import Stripe from 'stripe';
 import Product from '../models/Product';
+import Account from '../models/Account';
 import config from '../config/config';
 
 const stripeSecretKey = config.STRIPE_SECRET_KEY || 'nada pe';
@@ -24,10 +25,12 @@ export const POST_product: Handler = async (req, res) => {
 	}
 
 	let countPrice: number = 0;
-	const productName: string[] = [];
+	const productsName: string[] = [];
+	const productsID: any = [];
 
 	try {
 		const productsDB = await Product.find();
+		const user = await Account.findOne({ _id: reqUser._id });
 
 		for (let i = 0; i < products.length; i++) {
 			const productID = products[i]._id;
@@ -39,8 +42,15 @@ export const POST_product: Handler = async (req, res) => {
 				return res.json({ message: 'Maybe you are editing the products' });
 			}
 
+			else if (user?.products[0] !== undefined) {
+				const userHaveThisItem =  user?.products.includes(productID);
+
+				if (userHaveThisItem) return res.json({message: "You already have this product: " + products[i].name})
+			}
+
 			countPrice += filterProduct[0].price;
-			productName.push(filterProduct[0].name);
+			productsID.push(filterProduct[0]._id.toString());
+			productsName.push(filterProduct[0].name);
 		}
 
 		if (countPrice !== amount) {
@@ -50,14 +60,17 @@ export const POST_product: Handler = async (req, res) => {
 		await stripe.paymentIntents.create({
 			amount: countPrice * 100,
 			currency: 'USD',
-			description: productName.join(", "),
+			description: productsName.join(', '),
 			payment_method: paymentID,
 			confirm: true,
-		})
+		});
 
-		res.json({message: "Purchase made satisfactorily"})
+		productsID.map((product: any) => user?.products.push(product))
+		await user?.save();
+
+		res.json({ message: 'Purchase made satisfactorily' });
 	} catch (e) {
-		res.json({message: e.raw.message})
+		res.json({ message: e.raw.message });
 		console.log(e);
 		console.log('POST_product() payment.controllers Error');
 	}
