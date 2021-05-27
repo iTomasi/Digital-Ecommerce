@@ -9,6 +9,7 @@ interface IProducts {
 	description: string;
 	price: number;
 	img: string;
+	file: string;
 }
 
 const ProductState = ({ children }: any) => {
@@ -20,9 +21,12 @@ const ProductState = ({ children }: any) => {
 		description: '',
 		price: 0,
 		img: '',
+		file: '',
 	});
 
 	const [productsBuy, setProductsBuy] = useState<IProducts[]>([]);
+
+	const [userProducts, setUserProducts] = useState<any[]>([]);
 
 	const getProducts = async () => {
 		try {
@@ -59,6 +63,20 @@ const ProductState = ({ children }: any) => {
 		setProductsBuy(arr);
 	};
 
+	const getUserProducts = (userProducts: string[]) => {
+		const getProductBought = userProducts.map((productID: any) => {
+			const filterProduct = products.filter(
+				(product: any) => product._id === productID
+			);
+
+			if (filterProduct[0] === undefined) return false;
+
+			return filterProduct[0];
+		});
+
+		setUserProducts(getProductBought);
+	};
+
 	return (
 		<ProductContext.Provider
 			value={{
@@ -68,6 +86,8 @@ const ProductState = ({ children }: any) => {
 				getProductById,
 				productsBuy,
 				productsToBuy,
+				userProducts,
+				getUserProducts,
 			}}
 		>
 			{children}

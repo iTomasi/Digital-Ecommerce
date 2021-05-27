@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from 'react';
+import fileDownload from 'js-file-download';
+import path from 'path';
 import config from '../../config/config';
+import Axios from 'axios';
 import './scss/myProductCard.scss';
 
 interface IProductCard {
 	id: string;
 	img: string;
 	name: string;
+	file: string;
 }
 
-const MyProductCard = ({ id, img, name }: IProductCard) => {
+const MyProductCard = ({ id, img, name, file }: IProductCard) => {
 	const [downloadMessage, setDownloadMessage] = useState<string>('Download');
 
 	useEffect(() => {
@@ -29,6 +33,19 @@ const MyProductCard = ({ id, img, name }: IProductCard) => {
 		return () => window.removeEventListener('resize', resizeFunc);
 	}, []);
 
+	const downloadFile = async () => {
+		const res = await Axios({
+			method: 'GET',
+			url: config.HOST.BACK_END + `/download?id=${id}&file=${file}`,
+			headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+			responseType: 'blob',
+		});
+
+		if (res.data.size === 41) return;
+
+		fileDownload(res.data, `${name}${path.extname(file)}`);
+	};
+
 	return (
 		<div className="myProductCard">
 			<img
@@ -41,7 +58,9 @@ const MyProductCard = ({ id, img, name }: IProductCard) => {
 
 				<div className="buttons">
 					<button type="button">Info</button>
-					<button type="button">{downloadMessage}</button>
+					<button type="button" onClick={downloadFile}>
+						{downloadMessage}
+					</button>
 				</div>
 			</div>
 		</div>

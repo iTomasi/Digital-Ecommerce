@@ -33,8 +33,21 @@ export const GET_products: Handler = async (req, res) => {
 			description: product.description,
 			price: product.price,
 			img: product.img,
+			file: product.file,
 		};
 	});
 
 	res.json(productsMap);
+};
+
+export const GET_downloadProductFile: Handler = (req, res) => {
+	const { id, file } = req.query;
+	const reqUser: any = req.user;
+	const filePath = '../../productsFiles';
+
+	if (!reqUser.products.includes(id)) {
+		return res.json({ message: 'You do not buy this product' });
+	}
+
+	res.download(path.join(__dirname, `${filePath}/${file}`));
 };
