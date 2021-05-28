@@ -13,12 +13,12 @@ const SocketState = ({ children }: any) => {
 
     useEffect(() => {
         if (userDatas.token.id !== "0") {
-            console.log(userDatas);
-            setSocket(socketio(config.HOST.BACK_END, {
-                query: {id: userDatas.token._id, cartProducts: userDatas.token.cartProducts}
-            })) 
-
-            return () => socket.close()
+            const newSocket: any = socketio(config.HOST.BACK_END, {
+                query: {id: userDatas.token._id, cartProducts: userDatas.token.cartProducts, products: userDatas.token.products}
+            })
+            setSocket(newSocket);
+            
+            return () => newSocket.close()
         }
 
         // eslint-disable-next-line

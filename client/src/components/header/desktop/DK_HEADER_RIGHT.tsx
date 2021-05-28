@@ -40,6 +40,10 @@ const DK_HEADER_RIGHT = () => {
 						}
 						alt={userDatas.token.username}
 					/>
+					<i
+						className="fas fa-shopping-cart"
+						onClick={() => history.push('/my-cart')}
+					></i>
 					<div className="setting">
 						<i className="i__cog fas fa-cog" onClick={handleClickSetting}></i>
 

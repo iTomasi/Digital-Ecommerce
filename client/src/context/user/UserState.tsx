@@ -10,6 +10,7 @@ interface IUserDatas {
 		email: string;
 		img: string;
 		rank: string[];
+		cartProducts: string[];
 		products: string[];
 	};
 	auth: boolean;
@@ -23,6 +24,7 @@ const UserState = ({ children }: any) => {
 			email: '',
 			img: '',
 			rank: ['admin'],
+			cartProducts: [],
 			products: [],
 		},
 		auth: true,
@@ -50,11 +52,31 @@ const UserState = ({ children }: any) => {
 		}
 	};
 
+	const addCartProduct = (id: string) => {
+		if (
+			!userDatas.token.cartProducts.includes(id) &&
+			!userDatas.token.products.includes(id)
+		) {
+			setUserDatas((prev: any) => ({
+				...prev,
+				token: {
+					...prev.token,
+					cartProducts: [...userDatas.token.cartProducts, id],
+				},
+			}));
+
+			return true;
+		}
+
+		return false;
+	};
+
 	return (
 		<UserContext.Provider
 			value={{
 				userDatas,
 				isUserAuthenticated,
+				addCartProduct,
 			}}
 		>
 			{children}

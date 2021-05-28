@@ -27,6 +27,7 @@ const ProductState = ({ children }: any) => {
 	const [productsBuy, setProductsBuy] = useState<IProducts[]>([]);
 
 	const [userProducts, setUserProducts] = useState<any[]>([]);
+	const [cartProducts, setCartProducts] = useState<any[]>([]);
 
 	const getProducts = async () => {
 		try {
@@ -77,6 +78,18 @@ const ProductState = ({ children }: any) => {
 		setUserProducts(getProductBought);
 	};
 
+	const getCartProducts = (userCartProducts: string[]) => {
+		const getUserCart = userCartProducts.map((id: any) => {
+			const filterProduct = products.filter((product: any) => product._id === id);
+
+			if (filterProduct[0] === undefined) return false;
+
+			return filterProduct[0];
+		});
+
+		setCartProducts(getUserCart);
+	}
+
 	return (
 		<ProductContext.Provider
 			value={{
@@ -88,6 +101,8 @@ const ProductState = ({ children }: any) => {
 				productsToBuy,
 				userProducts,
 				getUserProducts,
+				getCartProducts,
+				cartProducts
 			}}
 		>
 			{children}

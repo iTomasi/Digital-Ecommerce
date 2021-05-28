@@ -40,9 +40,22 @@ let usersID: IUsersID[] = [];
 
 socket.on('connection', (socket) => {
 	const userID = socket.handshake.query.id?.toString();
-    const cartProducts = socket.handshake.query.cartProducts?.toString();
+	const cartProducts = socket.handshake.query.cartProducts?.toString();
+	const userProducts = socket.handshake.query.products?.toString();
+	let cartProducts_array: string[] = [];
+	let userProducts_array: string[] = [];
 
-	if (userID === undefined || cartProducts === undefined) return;
+	console.log(cartProducts);
+	console.log(userProducts);
+
+	if (
+		userID === undefined ||
+		cartProducts === undefined ||
+		userProducts === undefined
+	)
+		return;
+	if (cartProducts !== '') cartProducts_array = cartProducts.split(',');
+	if (userProducts !== '') userProducts_array = userProducts.split(',');
 
 	const findUserIDIndexJoined = usersID.findIndex(
 		(user: any) => user.id === userID
@@ -51,7 +64,7 @@ socket.on('connection', (socket) => {
 	if (findUserIDIndexJoined === -1) {
 		usersID.push({
 			id: userID,
-			cart: [],
+			cart: cartProducts_array,
 			socketConnected: 1,
 		});
 	} else {
@@ -59,12 +72,17 @@ socket.on('connection', (socket) => {
 	}
 
 	socket.on('cart:product', (productID) => {
-        const findUserIDIndex = usersID.findIndex((user: any) => user.id === userID);
-        const getUserCart = usersID[findUserIDIndex].cart;
+		const findUserIDIndex = usersID.findIndex(
+			(user: any) => user.id === userID
+		);
+		const getUserCart = usersID[findUserIDIndex].cart;
 
-        if (!getUserCart.includes(productID)) {
-            usersID[findUserIDIndex].cart.push(productID);
-        }
+		if (
+			!getUserCart.includes(productID) &&
+			!userProducts_array.includes(productID)
+		) {
+			usersID[findUserIDIndex].cart.push(productID);
+		}
 	});
 
 	socket.on('disconnect', () => {
@@ -75,19 +93,16 @@ socket.on('connection', (socket) => {
 		if (usersID[findUserIDIndex].socketConnected > 1) {
 			--usersID[findUserIDIndex].socketConnected;
 		} else {
-			const filtingUsersID = usersID.filter(
-				(user: any) => user.id !== userID
-			);
+			const filtingUsersID = usersID.filter((user: any) => user.id !== userID);
 
 			usersID = filtingUsersID;
 		}
 	});
 });
 
-
 // THIS INTERVAL WILL BE REMOVE ONLY FOR SEE THE ARRAY
 setInterval(() => {
-    console.log(usersID);
-}, 5000)
+	console.log(usersID);
+}, 5000);
 
 export { app, server };
