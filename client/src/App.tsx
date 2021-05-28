@@ -17,6 +17,7 @@ import AddProduct from './views/AddProduct';
 import ProductInfo from './views/ProductInfo';
 import CheckoutForm from './views/CheckoutForm';
 import MyProducts from './views/MyProducts';
+import Cart from './views/Cart';
 
 // Routes
 import UserRoute from './routes/UserRoute.routes';
@@ -46,6 +47,7 @@ const App = () => {
 					<UserRoute exact path="/products" component={Products} />
 					<UserRoute exact path="/product/:id" component={ProductInfo} />
 					<UserRoute exact path="/my-products" component={MyProducts} />
+					<UserRoute exact path="/my-cart" component={Cart} />
 
 					<AdminRoute exact path="/admin/add-product" component={AddProduct} />
 
