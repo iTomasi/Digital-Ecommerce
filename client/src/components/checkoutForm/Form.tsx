@@ -27,9 +27,9 @@ const Form = () => {
 	const addingProductPrice = () => {
 		let count = 0;
 
-		for (let i = 0; i < productsBuy.length; i++) {
-			count += productsBuy[i].price;
-		}
+		productsBuy.map((product: any) => {
+			return count += product.price
+		})
 
 		return count;
 	};

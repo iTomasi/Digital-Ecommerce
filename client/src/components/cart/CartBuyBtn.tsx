@@ -1,4 +1,5 @@
 import React, { useState, useContext, useEffect } from 'react';
+import {useHistory} from "react-router-dom";
 import config from '../../config/config';
 import './scss/cartBuyBtn.scss';
 
@@ -6,7 +7,8 @@ import './scss/cartBuyBtn.scss';
 import ProductContext from '../../context/product/ProductContext';
 
 const CartBuyBtn = () => {
-	const { cartProducts } = useContext(ProductContext);
+	const history = useHistory();
+	const { cartProducts, productsToBuy } = useContext(ProductContext);
 
 	const [totalPrice, setTotalPrice] = useState<number>(0);
 
@@ -26,7 +28,10 @@ const CartBuyBtn = () => {
 				Total Price: ${totalPrice} {config.CURRENCY['USD']}
 			</h3>
 
-			<button type="button">Purchase Products</button>
+			<button type="button" onClick={() => {
+				productsToBuy(cartProducts);
+				history.push("/checkout")
+			}}>Purchase Products</button>
 		</div>
 	);
 };
