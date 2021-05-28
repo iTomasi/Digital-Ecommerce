@@ -14,7 +14,6 @@ const ProductInfoBtns = () => {
 	const { addCartProduct } = useContext(UserContext);
 
 	const handleBtnAddCart = () => {
-		console.log(productInfo);
 		const isAdded = addCartProduct(productInfo._id);
 		if (isAdded) {
 			socket.emit('cart:product', productInfo._id);

@@ -1,16 +1,26 @@
 import React, { useContext, useEffect } from 'react';
+import './scss/cart.scss';
 
 // Context
 import UserContext from '../context/user/UserContext';
 import ProductContext from '../context/product/ProductContext';
 
+// Component
+import CartProductCard from '../components/cart/CartProductCard';
+import CartBuyBtn from '../components/cart/CartBuyBtn';
+
 const Cart = () => {
 	const { userDatas } = useContext(UserContext);
-	const { getCartProducts, products, cartProducts} = useContext(ProductContext);
+	const { getCartProducts, products, cartProducts, getProducts } =
+		useContext(ProductContext);
 
 	useEffect(() => {
-		if (userDatas.token.id !== "0" && products.length !== 0) {
-			getCartProducts(userDatas.token.cartProducts)
+		if (products[0] === undefined) {
+			getProducts();
+		}
+
+		if (userDatas.token._id !== '0' && products[0] !== undefined) {
+			getCartProducts(userDatas.token.cartProducts);
 		}
 
 		// eslint-disable-next-line
@@ -20,16 +30,23 @@ const Cart = () => {
 		<div className="cart">
 			<h1>My Cart</h1>
 
-			<div className="products">
-				{
-					cartProducts[0] === undefined
-					? <></>
-					:
-					cartProducts.map((product: any) => (
-						<h1>{product.name}</h1>
-					))
-				}
-			</div>
+			{cartProducts[0] === undefined ? (
+				<h1>No cart products</h1>
+			) : (
+				<div className="products">
+					{cartProducts.map((product: any, index: any) => (
+						<CartProductCard
+							key={index}
+							id={product.id}
+							price={product.price}
+							img={product.img}
+							name={product.name}
+						/>
+					))}
+
+					<CartBuyBtn />
+				</div>
+			)}
 		</div>
 	);
 };

@@ -5,6 +5,7 @@ import passport from 'passport';
 import passport_jwt from './passport/passport_jwt';
 import passport_jwt_admin from './passport/passport_jwt_admin';
 import { Server } from 'socket.io';
+import Account from './models/Account';
 
 // Routes
 import routePages from './routes/pages.routes';
@@ -45,9 +46,6 @@ socket.on('connection', (socket) => {
 	let cartProducts_array: string[] = [];
 	let userProducts_array: string[] = [];
 
-	console.log(cartProducts);
-	console.log(userProducts);
-
 	if (
 		userID === undefined ||
 		cartProducts === undefined ||
@@ -85,7 +83,7 @@ socket.on('connection', (socket) => {
 		}
 	});
 
-	socket.on('disconnect', () => {
+	socket.once('disconnect', async () => {
 		const findUserIDIndex = usersID.findIndex(
 			(user: any) => user.id === userID
 		);
@@ -93,9 +91,29 @@ socket.on('connection', (socket) => {
 		if (usersID[findUserIDIndex].socketConnected > 1) {
 			--usersID[findUserIDIndex].socketConnected;
 		} else {
-			const filtingUsersID = usersID.filter((user: any) => user.id !== userID);
+			try {
+				const user = await Account.findOne({ _id: userID });
 
-			usersID = filtingUsersID;
+				if (!user) throw Error;
+
+				for (let i = 0; i < usersID[findUserIDIndex].cart.length; i++) {
+					if (!user.cartProducts.includes(usersID[findUserIDIndex].cart[i])) {
+						user.cartProducts.push(usersID[findUserIDIndex].cart[i]);
+					}
+				}
+
+				await user.save();
+
+				const filtingUsersID = usersID.filter(
+					(user: any) => user.id !== userID
+				);
+				usersID = filtingUsersID;
+			} catch (e) {
+				console.log(e);
+				console.log(
+					'SocketIO Disconnect error, probably user doesnt have id registered in the db'
+				);
+			}
 		}
 	});
 });
