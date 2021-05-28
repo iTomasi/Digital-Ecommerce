@@ -19,6 +19,7 @@ const MyProducts = () => {
 		}
 
 		getUserProducts(userDatas.token.products);
+		// eslint-disable-next-line
 	}, [products, userDatas]);
 
 	return (

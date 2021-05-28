@@ -1,10 +1,12 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import config from '../../../config/config';
 import { useHistory } from 'react-router-dom';
 
 // Context
 import UserContext from '../../../context/user/UserContext';
+
+// Components
+import SettingOptions from '../SettingOptions';
 
 const DK_HEADER_RIGHT = () => {
 	const history = useHistory();
@@ -28,7 +30,7 @@ const DK_HEADER_RIGHT = () => {
 
 	return (
 		<div className="right">
-			{userDatas.auth ? (
+			{userDatas.token.id !== '0' ? (
 				<>
 					<img
 						src={
@@ -41,21 +43,7 @@ const DK_HEADER_RIGHT = () => {
 					<div className="setting">
 						<i className="i__cog fas fa-cog" onClick={handleClickSetting}></i>
 
-						<div
-							className="options"
-							style={{ display: displayOptions ? 'flex' : 'none' }}
-						>
-							<Link to="/">Profile</Link>
-							<button
-								type="button"
-								onClick={() => {
-									localStorage.removeItem('token');
-									window.location.href = '/sign-in';
-								}}
-							>
-								Logout
-							</button>
-						</div>
+						<SettingOptions display={displayOptions} />
 					</div>
 				</>
 			) : (
