@@ -15,11 +15,13 @@ const SocketState = ({ children }: any) => {
         if (userDatas.token.id !== "0") {
             console.log(userDatas);
             setSocket(socketio(config.HOST.BACK_END, {
-                query: {id: userDatas.token._id}
+                query: {id: userDatas.token._id, cartProducts: userDatas.token.cartProducts}
             })) 
 
             return () => socket.close()
         }
+
+        // eslint-disable-next-line
     }, [userDatas])
 
 	return (
