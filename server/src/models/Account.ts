@@ -7,7 +7,7 @@ interface IAccount extends Document {
 	email: string;
 	img: string;
 	rank: string[];
-	cartProduct: any[];
+	cartProducts: string[];
 	products: string[];
 
 }
@@ -19,7 +19,7 @@ const accountSchema = new Schema({
 	email: { type: String },
 	img: { type: String },
 	rank: { type: Array, default: ['user'] },
-	cartProduct: {type: Array, default: []},
+	cartProducts: {type: Array, default: []},
 	products: { type: Array, default: [] },
 });
 
