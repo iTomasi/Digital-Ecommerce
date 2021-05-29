@@ -67,6 +67,11 @@ export const POST_product: Handler = async (req, res) => {
 		});
 
 		productsID.map((product: any) => user?.products.push(product));
+
+		if (user?.cartProducts[0] !== undefined) {
+			user.cartProducts = [];
+		}
+
 		await user?.save();
 
 		res.json({ message: 'Purchase made satisfactorily' });

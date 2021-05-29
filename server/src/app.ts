@@ -37,7 +37,7 @@ interface IUsersID {
 	socketConnected: number;
 }
 
-let usersID: IUsersID[] = [];
+let usersID: IUsersID[] = []
 
 socket.on('connection', (socket) => {
 	const userID = socket.handshake.query.id?.toString();
@@ -95,6 +95,13 @@ socket.on('connection', (socket) => {
 
 		usersID[findUserIDIndex].cart = filterCartProducts;
 	});
+
+	socket.on('cart:product:reset', data => {
+		if (data === "reset") {
+			const findUserIDIndex = usersID.findIndex((user: any) => user.id === userID);
+			usersID[findUserIDIndex].cart = [];
+		}
+	})
 
 	socket.once('disconnect', async () => {
 		const findUserIDIndex = usersID.findIndex(

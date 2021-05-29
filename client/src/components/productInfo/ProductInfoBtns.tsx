@@ -28,8 +28,10 @@ const ProductInfoBtns = () => {
 
 	return (
 		<div className="productInfoBtns">
-			{userDatas.token.cartProducts.includes(productInfo._id) ? (
-				<h2>Product Already in the cart</h2>
+			{userDatas.token.products.includes(productInfo._id) ? (
+				<h2>Product already bought</h2>
+			) : userDatas.token.cartProducts.includes(productInfo._id) ? (
+				<h2>Product already in your Cart</h2>
 			) : (
 				<>
 					<button type="button" onClick={handleBtnAddCart}>

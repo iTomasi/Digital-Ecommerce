@@ -91,6 +91,23 @@ const UserState = ({ children }: any) => {
 		return false;
 	};
 
+	const pushUserProductsAndResetCartProducts = (arr: []) => {
+		const userProducts = [...userDatas.token.products];
+		const newUserProducts = arr.map((productID: any) => productID._id);
+		const concatProducts = userProducts.concat(newUserProducts);
+
+		setUserDatas((prev: any) => (
+			{
+				...prev,
+				token: {
+					...prev.token,
+					products: concatProducts,
+					cartProducts: []
+				}
+			}
+		))
+	}
+
 	return (
 		<UserContext.Provider
 			value={{
@@ -98,6 +115,7 @@ const UserState = ({ children }: any) => {
 				isUserAuthenticated,
 				addCartProduct,
 				removeCartProduct,
+				pushUserProductsAndResetCartProducts
 			}}
 		>
 			{children}

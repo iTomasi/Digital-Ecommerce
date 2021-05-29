@@ -1,4 +1,5 @@
 import React, { useContext, useRef } from 'react';
+import {useHistory} from "react-router-dom";
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { StripeCardElementOptions } from '@stripe/stripe-js';
 import config from '../../config/config';
@@ -7,6 +8,8 @@ import './scss/form.scss';
 
 // Context
 import ProductContext from '../../context/product/ProductContext';
+import SocketContext from "../../context/socket/SocketContext";
+import UserContext from "../../context/user/UserContext";
 
 const cardElement_Options: StripeCardElementOptions = {
 	iconStyle: 'solid',
@@ -20,9 +23,12 @@ const cardElement_Options: StripeCardElementOptions = {
 };
 
 const Form = () => {
+	const history = useHistory();
 	const stripe: any = useStripe();
 	const elements: any = useElements();
 	const { productsBuy } = useContext(ProductContext);
+	const socket: any = useContext(SocketContext);
+	const {pushUserProductsAndResetCartProducts} = useContext(UserContext);
 
 	const addingProductPrice = () => {
 		let count = 0;
@@ -66,7 +72,12 @@ const Form = () => {
 				}
 			);
 
-			console.log(res.data);
+			if (res.data.message !== "Purchase made satisfactorily") return console.log(res.data);
+
+			socket.emit("cart:product:reset", "reset");
+			pushUserProductsAndResetCartProducts(productsBuy);
+			history.push("/my-products");
+
 		} catch (e) {
 			console.log(e);
 			console.log('handleForm() Error');
