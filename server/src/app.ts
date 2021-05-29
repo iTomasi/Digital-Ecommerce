@@ -83,6 +83,19 @@ socket.on('connection', (socket) => {
 		}
 	});
 
+	socket.on('cart:product:remove', (productID) => {
+		const findUserIDIndex = usersID.findIndex(
+			(user: any) => user.id === userID
+		);
+		const getCartProducts = usersID[findUserIDIndex].cart;
+
+		const filterCartProducts = getCartProducts.filter(
+			(product: any) => product !== productID
+		);
+
+		usersID[findUserIDIndex].cart = filterCartProducts;
+	});
+
 	socket.once('disconnect', async () => {
 		const findUserIDIndex = usersID.findIndex(
 			(user: any) => user.id === userID

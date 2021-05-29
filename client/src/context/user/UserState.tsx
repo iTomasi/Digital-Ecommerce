@@ -71,12 +71,33 @@ const UserState = ({ children }: any) => {
 		return false;
 	};
 
+	const removeCartProduct = (id: string) => {
+		if (userDatas.token.cartProducts.includes(id)) {
+			const filtingCartProducts = userDatas.token.cartProducts.filter(
+				(productID: any) => productID !== id
+			);
+
+			setUserDatas((prev: any) => ({
+				...prev,
+				token: {
+					...prev.token,
+					cartProducts: filtingCartProducts,
+				},
+			}));
+
+			return true;
+		}
+
+		return false;
+	};
+
 	return (
 		<UserContext.Provider
 			value={{
 				userDatas,
 				isUserAuthenticated,
 				addCartProduct,
+				removeCartProduct,
 			}}
 		>
 			{children}

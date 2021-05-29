@@ -11,13 +11,14 @@ const ProductInfoBtns = () => {
 	const history = useHistory();
 	const { productInfo, productsToBuy } = useContext(ProductContext);
 	const socket: any = useContext(SocketContext);
-	const { addCartProduct } = useContext(UserContext);
+	const { addCartProduct, userDatas } = useContext(UserContext);
 
 	const handleBtnAddCart = () => {
 		const isAdded = addCartProduct(productInfo._id);
 		if (isAdded) {
 			socket.emit('cart:product', productInfo._id);
 		}
+		history.push('/products');
 	};
 
 	const handleBtnBuyNow = () => {
@@ -27,13 +28,19 @@ const ProductInfoBtns = () => {
 
 	return (
 		<div className="productInfoBtns">
-			<button type="button" onClick={handleBtnAddCart}>
-				Add to Cart
-			</button>
-			<h3>Or</h3>
-			<button type="button" onClick={handleBtnBuyNow}>
-				Buy Now
-			</button>
+			{userDatas.token.cartProducts.includes(productInfo._id) ? (
+				<h2>Product Already in the cart</h2>
+			) : (
+				<>
+					<button type="button" onClick={handleBtnAddCart}>
+						Add to Cart
+					</button>
+					<h3>Or</h3>
+					<button type="button" onClick={handleBtnBuyNow}>
+						Buy Now
+					</button>
+				</>
+			)}
 		</div>
 	);
 };
