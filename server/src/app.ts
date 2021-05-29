@@ -149,8 +149,4 @@ socket.on('connection', (socket) => {
 	});
 });
 
-setInterval(() => {
-	console.log(usersID)
-}, 1000)
-
 export { app, server };
