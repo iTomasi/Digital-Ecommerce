@@ -9,5 +9,8 @@ export default {
 			process.env.MONGODB_URI || 'mongodb://localhost:27017/digital-ecommerce',
 	},
 	JWT_TOKEN: process.env.JWT_TOKEN || 'mysecretkey',
-	STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY
+	STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
+	HOST: {
+		FRONT_END: 'http://localhost:3000',
+	},
 };

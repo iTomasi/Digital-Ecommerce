@@ -6,6 +6,7 @@ import passport_jwt from './passport/passport_jwt';
 import passport_jwt_admin from './passport/passport_jwt_admin';
 import { Server } from 'socket.io';
 import Account from './models/Account';
+import config from './config/config';
 
 // Routes
 import routePages from './routes/pages.routes';
@@ -16,7 +17,7 @@ import routePayment from './routes/payment.routes';
 const app = express();
 const server = http.createServer(app);
 const socket = new Server(server, {
-	cors: { origin: 'http://localhost:3000' },
+	cors: { origin: config.HOST.FRONT_END },
 });
 
 app.set('port', process.env.PORT || 4000);
@@ -37,7 +38,7 @@ interface IUsersID {
 	socketConnected: number;
 }
 
-let usersID: IUsersID[] = []
+let usersID: IUsersID[] = [];
 
 socket.on('connection', (socket) => {
 	const userID = socket.handshake.query.id?.toString();
@@ -96,12 +97,14 @@ socket.on('connection', (socket) => {
 		usersID[findUserIDIndex].cart = filterCartProducts;
 	});
 
-	socket.on('cart:product:reset', data => {
-		if (data === "reset") {
-			const findUserIDIndex = usersID.findIndex((user: any) => user.id === userID);
+	socket.on('cart:product:reset', (data) => {
+		if (data === 'reset') {
+			const findUserIDIndex = usersID.findIndex(
+				(user: any) => user.id === userID
+			);
 			usersID[findUserIDIndex].cart = [];
 		}
-	})
+	});
 
 	socket.once('disconnect', async () => {
 		const findUserIDIndex = usersID.findIndex(
@@ -137,10 +140,4 @@ socket.on('connection', (socket) => {
 		}
 	});
 });
-
-// THIS INTERVAL WILL BE REMOVE ONLY FOR SEE THE ARRAY
-setInterval(() => {
-	console.log(usersID);
-}, 5000);
-
 export { app, server };

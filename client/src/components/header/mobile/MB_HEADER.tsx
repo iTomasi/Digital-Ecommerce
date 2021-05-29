@@ -1,4 +1,5 @@
 import React, { useContext, useState, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import config from '../../../config/config';
 import './mb_header.scss';
 
@@ -10,6 +11,7 @@ import Navegation from '../Navegation';
 import SettingOptions from '../SettingOptions';
 
 const MB_HEADER = () => {
+	const history = useHistory();
 	const { userDatas } = useContext(UserContext);
 
 	const [displayNav, setDisplayNav] = useState<boolean>(false);
@@ -60,6 +62,10 @@ const MB_HEADER = () => {
 								}
 								alt={userDatas.token.username}
 							/>
+							<i
+								className="fas fa-shopping-cart"
+								onClick={() => history.push('/my-cart')}
+							></i>
 
 							<i
 								className="i__cog fas fa-cog"
@@ -79,8 +85,12 @@ const MB_HEADER = () => {
 			<div className="under" style={{ display: displayNav ? 'flex' : 'none' }}>
 				{userDatas.token.id === '0' ? (
 					<div className="sign-btn">
-						<button type="button">Sign In</button>
-						<button type="button">Sign Up</button>
+						<button type="button" onClick={() => history.push('/sign-in')}>
+							Sign In
+						</button>
+						<button type="button" onClick={() => history.push('/sign-up')}>
+							Sign Up
+						</button>
 					</div>
 				) : (
 					<></>

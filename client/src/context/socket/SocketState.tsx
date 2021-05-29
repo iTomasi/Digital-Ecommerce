@@ -14,7 +14,6 @@ const SocketState = ({ children }: any) => {
 
 	useEffect(() => {
 		if (userDatas.token.id !== '0' && !socketConnected.current) {
-			console.log('Aloja');
 			const newSocket: any = socketio(config.HOST.BACK_END, {
 				query: {
 					id: userDatas.token._id,
