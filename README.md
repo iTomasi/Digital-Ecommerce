@@ -51,3 +51,21 @@ $ npm start
 ```
 
 with all these steps the project should work correctly :3
+
+## ADMIN
+
+if you want add product in the website, you need give admin rank to the user account, default rank is user. can get more than 1 rank due that the rank is inside an array.
+
+Example:
+
+by default
+
+```javascript
+["user"]
+```
+
+This is how the array would be if the user has admin.
+
+```javascript
+["user", "admin"]
+```
