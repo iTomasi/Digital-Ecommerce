@@ -61,7 +61,7 @@ export const POST_product: Handler = async (req, res) => {
 		await stripe.paymentIntents.create({
 			amount: countPrice * 100,
 			currency: 'USD',
-			description: productsName.join(', '),
+			description: `(${clientName}) ${productsName.join(', ')}`,
 			payment_method: paymentID,
 			confirm: true,
 		});

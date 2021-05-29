@@ -10,6 +10,7 @@ import './scss/form.scss';
 import ProductContext from '../../context/product/ProductContext';
 import SocketContext from "../../context/socket/SocketContext";
 import UserContext from "../../context/user/UserContext";
+import NotificationContext from "../../context/notification/NotificationContext";
 
 const cardElement_Options: StripeCardElementOptions = {
 	iconStyle: 'solid',
@@ -26,9 +27,11 @@ const Form = () => {
 	const history = useHistory();
 	const stripe: any = useStripe();
 	const elements: any = useElements();
+
 	const { productsBuy } = useContext(ProductContext);
 	const socket: any = useContext(SocketContext);
 	const {pushUserProductsAndResetCartProducts} = useContext(UserContext);
+	const {showNotification} = useContext(NotificationContext);
 
 	const addingProductPrice = () => {
 		let count = 0;
@@ -72,10 +75,11 @@ const Form = () => {
 				}
 			);
 
-			if (res.data.message !== "Purchase made satisfactorily") return console.log(res.data);
+			if (res.data.message !== "Purchase made satisfactorily") return showNotification("error", res.data.message);
 
 			socket.emit("cart:product:reset", "reset");
 			pushUserProductsAndResetCartProducts(productsBuy);
+			showNotification("success", res.data.message);
 			history.push("/my-products");
 
 		} catch (e) {
