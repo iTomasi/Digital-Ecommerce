@@ -9,6 +9,7 @@ import UserState from './context/user/UserState';
 import ProductState from './context/product/ProductState';
 import SocketState from './context/socket/SocketState';
 import NotificationState from './context/notification/NotificationState';
+import DownloadState from './context/downloadBar/DownloadState';
 
 ReactDOM.render(
 	<BrowserRouter>
@@ -16,7 +17,9 @@ ReactDOM.render(
 			<SocketState>
 				<ProductState>
 					<NotificationState>
-						<App />
+						<DownloadState>
+							<App />
+						</DownloadState>
 					</NotificationState>
 				</ProductState>
 			</SocketState>
