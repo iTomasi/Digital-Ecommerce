@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import config from '../config/config';
 import Axios from 'axios';
 import './scss/form.scss';
+
+// Context
+import NotificationContext from '../context/notification/NotificationContext';
 
 interface IUploadPercentage {
 	display: boolean;
@@ -14,6 +17,8 @@ interface IFileName {
 }
 
 const AddProduct = () => {
+	const { showNotification } = useContext(NotificationContext);
+
 	const defaultFileNameValues: any = {
 		productImg: 'Select img',
 		productFile: 'Select file',
@@ -41,14 +46,17 @@ const AddProduct = () => {
 		const productImg: any = formData.get('productImg');
 		const productFile: any = formData.get('productFile');
 
-		if (!product_name) return console.log('Product name missing');
-		else if (!product_price) return console.log('Product price missing');
+		if (!product_name) return showNotification('error', 'Product name missing');
+		else if (!product_price)
+			return showNotification('error', 'Product price missing');
 		else if (!product_priceRegExp.test(product_price))
-			return console.log('Product price should contain numbers');
+			return showNotification('error', 'Product price should contain numbers');
 		else if (!product_description)
-			return console.log('Product description missing');
-		else if (productImg.size === 0) return console.log('Product img missing');
-		else if (productFile.size === 0) return console.log('Product file missing');
+			return showNotification('error', 'Product description missing');
+		else if (productImg.size === 0)
+			return showNotification('error', 'Product img missing');
+		else if (productFile.size === 0)
+			return showNotification('error', 'Product file missing');
 
 		try {
 			const res = await Axios.post(
@@ -76,10 +84,19 @@ const AddProduct = () => {
 				}
 			);
 
-			console.log(res.data);
+			if (res.data.message !== 'Product added successfully')
+				return showNotification('error', res.data.message);
+
+			showNotification('success', res.data.message);
+
+			setTimeout(() => {
+				window.location.href = '/';
+			}, 2000);
 		} catch (e) {
 			console.log(e);
-			console.log('AddProduct() axios Error probably not admin rank or server offline.');
+			console.log(
+				'AddProduct() axios Error probably not admin rank or server offline.'
+			);
 		}
 	};
 

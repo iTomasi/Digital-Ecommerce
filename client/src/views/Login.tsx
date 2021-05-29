@@ -1,9 +1,13 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import config from '../config/config';
 import Axios from 'axios';
 import './scss/form.scss';
 
+// Context
+import NotificationContext from '../context/notification/NotificationContext';
+
 const Login = () => {
+	const { showNotification } = useContext(NotificationContext);
 	const [showPassword, setShowPassword] = useState<boolean>(false);
 
 	const handlePassword = () =>
@@ -13,9 +17,9 @@ const Login = () => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
 
-		if (!formData.get('username')) return console.log('Insert your username');
+		if (!formData.get('username')) return showNotification("error", "Insert your username");
 		else if (!formData.get('password'))
-			return console.log('Insert your password');
+			return showNotification('error', 'Insert your password');
 
 		try {
 			const res = await Axios.post(
@@ -27,10 +31,14 @@ const Login = () => {
 				{ headers: { 'Content-Type': 'application/json' } }
 			);
 
-			if (res.data.message !== 'Logged') return console.log(res.data);
+			if (res.data.message !== 'Logged')
+				return showNotification('error', res.data.message);
 
+			showNotification('success', res.data.message);
 			localStorage.setItem('token', res.data.token);
-			window.location.href = '/';
+			setTimeout(() => {
+				window.location.href = '/';
+			}, 2000);
 		} catch (e) {
 			console.log(e);
 			console.log('loggin() (Login.tsx) Error');

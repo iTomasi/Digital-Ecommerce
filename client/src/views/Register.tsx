@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import config from '../config/config';
 import Axios from 'axios';
 import './scss/form.scss';
+
+// Context
+import NotificationContext from '../context/notification/NotificationContext';
 
 interface IShowPassword {
 	password: boolean;
@@ -16,6 +19,7 @@ interface IUploadPercentage {
 
 const Register = () => {
 	const history = useHistory();
+	const { showNotification } = useContext(NotificationContext);
 
 	const [showPassword, setShowPassword] = useState<IShowPassword>({
 		password: false,
@@ -54,7 +58,7 @@ const Register = () => {
 
 			e.currentTarget.value = null;
 			setFileName('Select an IMG');
-			console.log('Your profile img should be an img..');
+			showNotification('error', 'Your profile img should be an img..');
 		} catch (e) {
 			setFileName('Select an IMG');
 		}
@@ -75,14 +79,19 @@ const Register = () => {
 		const confirm_password: any = formData.get('confirm_password');
 
 		if (username.length < 3)
-			return console.log('Your username must contains at less 3 characters');
-		else if (!emailRegExp.test(email)) return console.log('invalid email');
+			return showNotification(
+				'error',
+				'Your username must contains at less 3 characters'
+			);
+		else if (!emailRegExp.test(email))
+			return showNotification('error', 'invalid email');
 		else if (!passwordRegExp.test(password))
-			return console.log(
+			return showNotification(
+				'error',
 				'your password must contains at less 5 characters and [upper and lower case, numbers and special characters]'
 			);
 		else if (password !== confirm_password)
-			return console.log('password not match');
+			return showNotification('error', 'password not match');
 
 		try {
 			const res = await Axios.post(
@@ -109,7 +118,9 @@ const Register = () => {
 				}
 			);
 
-			if (res.data.message !== 'Registered') return console.log(res.data);
+			if (res.data.message !== 'Registered')
+				return showNotification('error', res.data.message);
+			showNotification('success', res.data.message);
 
 			history.push('/sign-in');
 		} catch (e) {
