@@ -111,6 +111,8 @@ socket.on('connection', (socket) => {
 			(user: any) => user.id === userID
 		);
 
+		if (findUserIDIndex === -1) return
+
 		if (usersID[findUserIDIndex].socketConnected > 1) {
 			--usersID[findUserIDIndex].socketConnected;
 		} else {
@@ -119,9 +121,15 @@ socket.on('connection', (socket) => {
 
 				if (!user) throw Error;
 
-				for (let i = 0; i < usersID[findUserIDIndex].cart.length; i++) {
-					if (!user.cartProducts.includes(usersID[findUserIDIndex].cart[i])) {
-						user.cartProducts.push(usersID[findUserIDIndex].cart[i]);
+				if (usersID[findUserIDIndex].cart[0] === undefined) {
+					user.cartProducts = [];
+				}
+
+				else {
+					for (let i = 0; i < usersID[findUserIDIndex].cart.length; i++) {
+						if (!user.cartProducts.includes(usersID[findUserIDIndex].cart[i])) {
+							user.cartProducts.push(usersID[findUserIDIndex].cart[i]);
+						}
 					}
 				}
 
@@ -140,4 +148,9 @@ socket.on('connection', (socket) => {
 		}
 	});
 });
+
+setInterval(() => {
+	console.log(usersID)
+}, 1000)
+
 export { app, server };
