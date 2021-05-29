@@ -77,6 +77,7 @@ const Register = () => {
 		const email: any = formData.get('email');
 		const password: any = formData.get('password');
 		const confirm_password: any = formData.get('confirm_password');
+		const userImg: any = formData.get("userImg");
 
 		if (username.length < 3)
 			return showNotification(
@@ -101,7 +102,7 @@ const Register = () => {
 					onUploadProgress: (e) => {
 						const progressPercentage = Math.round((e.loaded * 100) / e.total);
 
-						if (!uploadPercentage.display) {
+						if (!uploadPercentage.display && userImg.name) {
 							setUploadPercentage((prev: any) => ({
 								...prev,
 								display: true,
