@@ -29,7 +29,7 @@ const DK_HEADER_RIGHT = () => {
 		displayOptions ? setDisplayOptions(false) : setDisplayOptions(true);
 
 	return (
-		<div className="right">
+		<div className="w-1/4 flex justify-evenly items-center">
 			{userDatas.token.id !== '0' ? (
 				<>
 					<img
@@ -39,13 +39,14 @@ const DK_HEADER_RIGHT = () => {
 							userDatas.token.img
 						}
 						alt={userDatas.token.username}
+						className="w-14 h-14 rounded-full object-cover"
 					/>
 					<i
-						className="fas fa-shopping-cart"
+						className="fas fa-shopping-cart cursor-pointer"
 						onClick={() => history.push('/my-cart')}
 					></i>
-					<div className="setting">
-						<i className="i__cog fas fa-cog" onClick={handleClickSetting}></i>
+					<div className="relative">
+						<i className="i__cog fas fa-cog cursor-pointer" onClick={handleClickSetting}></i>
 
 						<SettingOptions display={displayOptions} />
 					</div>

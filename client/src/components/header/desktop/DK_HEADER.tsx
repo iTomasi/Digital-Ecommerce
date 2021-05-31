@@ -1,5 +1,4 @@
 import React from 'react';
-import './dk_header.scss';
 
 // Components
 import DK_HEADER_LEFT from './DK_HEADER_LEFT';
@@ -8,7 +7,7 @@ import DK_HEADER_RIGHT from './DK_HEADER_RIGHT';
 
 const DK_HEADER = () => {
 	return (
-		<header className="DK-header">
+		<header className="flex bg-gray-700 h-20 items-center text-center text-2xl">
 			<DK_HEADER_LEFT />
 			<Navegation />
 			<DK_HEADER_RIGHT />

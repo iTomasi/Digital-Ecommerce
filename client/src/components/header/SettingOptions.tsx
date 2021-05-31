@@ -12,16 +12,17 @@ const SettingOptions = ({ display }: ISettingOptionsProps) => {
 	const { userDatas } = useContext(UserContext);
 
 	return (
-		<div className="options" style={{ display: display ? 'flex' : 'none' }}>
-			<Link to="/">Profile</Link>
+		<div className="flex flex-col absolute bg-gray-700 top-16 right-0 w-40 text-xl" style={{ display: display ? 'flex' : 'none' }}>
+			<Link to="/" className="py-2 hover:bg-green-400 hover:text-gray-900">Profile</Link>
 			{userDatas.token.rank.includes('admin') ? (
 				<>
-					<Link to="/admin/add-product">Add Product</Link>
+					<Link to="/admin/add-product" className="py-2 hover:bg-green-400 hover:text-gray-900">Add Product</Link>
 				</>
 			) : (
 				<></>
 			)}
 			<button
+				className="py-2 hover:bg-green-400 hover:text-gray-900"
 				type="button"
 				onClick={() => {
 					localStorage.removeItem('token');
