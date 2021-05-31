@@ -6,6 +6,11 @@ module.exports = {
     screens: {
       "DK-header": "850px",
       "MB-header": {"min": "1px", "max": "849px"}
+    },
+
+    maxWidth: {
+      "180px": "180px",
+      "220px": "220px"
     }
   },
   variants: {

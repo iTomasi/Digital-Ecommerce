@@ -53,10 +53,10 @@ const DK_HEADER_RIGHT = () => {
 				</>
 			) : (
 				<>
-					<button type="button" onClick={() => history.push('/sign-in')}>
+					<button className="bg-white text-black py-1 px-3 rounded text-xl focus:outline-none" type="button" onClick={() => history.push('/sign-in')}>
 						Sign In
 					</button>
-					<button type="button" onClick={() => history.push('/sign-up')}>
+					<button className="bg-white text-black py-1 px-3 rounded text-xl focus:outline-none" type="button" onClick={() => history.push('/sign-up')}>
 						Sign Up
 					</button>
 				</>

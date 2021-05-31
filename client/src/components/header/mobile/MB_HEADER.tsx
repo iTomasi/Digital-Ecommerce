@@ -1,7 +1,6 @@
 import React, { useContext, useState, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import config from '../../../config/config';
-import './mb_header.scss';
 
 // Context
 import UserContext from '../../../context/user/UserContext';
@@ -40,21 +39,22 @@ const MB_HEADER = () => {
 	}, [displaySetting]);
 
 	return (
-		<header className="MB-header">
-			<div className="above">
-				<div className="left">
+		<header className="flex flex-col items-center z-50 text-xl fixed w-full top-0">
+			<div className="bg-gray-700 h-20 flex justify-between items-center w-full">
+				<div className="mx-8">
 					<i
-						className="i__bars fas fa-bars"
+						className="i__bars fas fa-bars cursor-pointer text-2xl"
 						onClick={() => {
 							displayNav ? setDisplayNav(false) : setDisplayNav(true);
 						}}
 					></i>
 				</div>
 
-				<div className="right">
+				<div className="mx-8 flex justify-between items-center w-3/5 max-w-180px">
 					{userDatas.token.id !== '0' ? (
 						<>
 							<img
+								className="h-14 w-14 rounded-full object-cover"
 								src={
 									config.HOST.BACK_END +
 									'/img?folder=users&file=' +
@@ -82,13 +82,13 @@ const MB_HEADER = () => {
 				</div>
 			</div>
 
-			<div className="under" style={{ display: displayNav ? 'flex' : 'none' }}>
+			<div className={`bg-black w-full ${displayNav ? "flex" : "hidden"} flex-col items-center`}>
 				{userDatas.token.id === '0' ? (
-					<div className="sign-btn">
-						<button type="button" onClick={() => history.push('/sign-in')}>
+					<div className="flex justify-between w-3/4 max-w-220px my-4">
+						<button className="bg-white text-black py-1 px-3 rounded text-xl focus:outline-none" type="button" onClick={() => history.push('/sign-in')}>
 							Sign In
 						</button>
-						<button type="button" onClick={() => history.push('/sign-up')}>
+						<button className="bg-white text-black py-1 px-3 rounded text-xl focus:outline-none" type="button" onClick={() => history.push('/sign-up')}>
 							Sign Up
 						</button>
 					</div>
