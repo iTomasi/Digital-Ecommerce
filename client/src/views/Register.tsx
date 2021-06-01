@@ -2,10 +2,14 @@ import React, { useState, useContext } from 'react';
 import { useHistory } from 'react-router-dom';
 import config from '../config/config';
 import Axios from 'axios';
-import './scss/form.scss';
 
 // Context
 import NotificationContext from '../context/notification/NotificationContext';
+
+// Components
+import FormSection from "../components/form/FormSection";
+import FormFile from "../components/form/FormFile";
+import FormPercentage from "../components/form/FormPercentage";
 
 interface IShowPassword {
 	password: boolean;
@@ -131,86 +135,56 @@ const Register = () => {
 	};
 
 	return (
-		<form className="iw_form" onSubmit={sendingDatas}>
-			<div className="formSection">
-				<label>Username</label>
-				<input type="text" placeholder="Username..." name="username" />
-			</div>
+		<form className="bg-gray-700 w-11/12 max-w-450px py-7 flex flex-col items-center text-center text-lg mx-auto" onSubmit={sendingDatas}>
 
-			<div className="formSection">
-				<label>Email</label>
-				<input type="text" placeholder="Email..." name="email" />
-			</div>
+			<FormSection 
+				title="Username"
+				type="text"
+				name="username"
+				isPassword={false}
+			/>
 
-			<div className="formSection">
-				<label>Password</label>
+			<FormSection 
+				title="Email"
+				type="text"
+				name="email"
+				isPassword={false}
+			/>
 
-				<div className="inputPassword">
-					<input
-						type={showPassword.password ? 'text' : 'password'}
-						placeholder="Password..."
-						name="password"
-					/>
-					<i
-						className={
-							showPassword.password ? config.EYE.unhidde : config.EYE.hidde
-						}
-						onClick={handlePassword}
-					></i>
-				</div>
-			</div>
+			<FormSection
+				title="Password"
+				type={showPassword.password ? "text" : "password"}
+				name="password"
+				isPassword={true}
+				className={showPassword.password ? config.EYE.unhidde : config.EYE.hidde}
+				onClick={handlePassword}
+			/>
+			
+			<FormSection 
+				title="Confirm Password"
+				type={showPassword.confirm_password ? "text" : "password"}
+				name="confirm_password"
+				isPassword={true}
+				className={showPassword.confirm_password ? config.EYE.unhidde :config.EYE.hidde}
+				onClick={handlePassword}
+			/>
 
-			<div className="formSection">
-				<label>Confirm Password</label>
+			<FormFile
+				id="inputFile"
+				title="Picture Profile"
+				file="IMG"
+				fileName={fileName}
+				defaultName="Select an IMG"
+				name="userImg"
+				onChange={handleInputFile}
+			/>
 
-				<div className="inputPassword">
-					<input
-						type={showPassword.confirm_password ? 'text' : 'password'}
-						placeholder="Confirm Password..."
-						name="confirm_password"
-					/>
-					<i
-						className={
-							showPassword.confirm_password
-								? config.EYE.unhidde
-								: config.EYE.hidde
-						}
-						onClick={handlePassword}
-					></i>
-				</div>
-			</div>
+			<FormPercentage
+				display={uploadPercentage.display}
+				percentage={uploadPercentage.percentage}
+			/>
 
-			<div className="formSection">
-				<div className="formFile">
-					<label htmlFor="inputFile">IMG</label>
-					<span>
-						{fileName.length >= 13 && fileName !== 'Select an IMG'
-							? fileName.substring(0, 13) + '...'
-							: fileName}
-					</span>
-					<input
-						id="inputFile"
-						type="file"
-						name="userImg"
-						onChange={handleInputFile}
-						style={{ display: 'none' }}
-					/>
-				</div>
-			</div>
-
-			<div
-				className="formPercentage"
-				style={{ display: uploadPercentage.display ? 'block' : 'none' }}
-			>
-				<div className="bar">
-					<div
-						className="current"
-						style={{ width: `${uploadPercentage.percentage}%` }}
-					></div>
-				</div>
-			</div>
-
-			<button type="submit">Register</button>
+			<button className="border-2 border-green-400 w-5/6 h-10 hover:bg-green-400 hover:text-black focus:outline-none" type="submit">Register</button>
 		</form>
 	);
 };

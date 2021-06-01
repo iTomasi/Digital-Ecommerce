@@ -37,7 +37,7 @@ const App = () => {
 		<>
 			<Header />
 
-			<div className="content">
+			<div className="max-w-1200px my-10 mobile:pt-14 mx-auto">
 				<Switch>
 					<Route exact path="/" component={Home} />
 

@@ -12,17 +12,28 @@ const SettingOptions = ({ display }: ISettingOptionsProps) => {
 	const { userDatas } = useContext(UserContext);
 
 	return (
-		<div className={`${display ? "flex" : "hidden"} flex-col DK-header:absolute DK-header:bg-gray-700 DK-header:top-16 DK-header:right-0 DK-header:w-40 MB-header:w-full MB-header:bg-black text-xl text-center`}>
-			<Link to="/" className="py-2 hover:bg-green-400 hover:text-gray-900">Profile</Link>
+		<div
+			className={`${
+				display ? 'flex' : 'hidden'
+			} flex-col desktop:absolute desktop:bg-gray-700 desktop:top-16 desktop:right-0 desktop:w-40 mobile:w-full mobile:bg-black text-xl text-center`}
+		>
+			<Link to="/" className="py-2 hover:bg-green-400 hover:text-gray-900">
+				Profile
+			</Link>
 			{userDatas.token.rank.includes('admin') ? (
 				<>
-					<Link to="/admin/add-product" className="py-2 hover:bg-green-400 hover:text-gray-900">Add Product</Link>
+					<Link
+						to="/admin/add-product"
+						className="py-2 hover:bg-green-400 hover:text-gray-900"
+					>
+						Add Product
+					</Link>
 				</>
 			) : (
 				<></>
 			)}
 			<button
-				className="py-2 hover:bg-green-400 hover:text-gray-900"
+				className="py-2 hover:bg-green-400 hover:text-gray-900 focus:outline-none"
 				type="button"
 				onClick={() => {
 					localStorage.removeItem('token');

@@ -4,14 +4,16 @@ module.exports = {
   theme: {
     extend: {},
     screens: {
-      "DK-header": "850px",
-      "MB-header": {"min": "1px", "max": "849px"}
+      "desktop": "850px",
+      "mobile": {"min": "1px", "max": "849px"}
     },
 
     maxWidth: {
       "180px": "180px",
-      "220px": "220px"
-    }
+      "220px": "220px",
+      "450px": "450px",
+      "1200px": "1200px"
+    },
   },
   variants: {
     extend: {

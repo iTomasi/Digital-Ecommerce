@@ -1,10 +1,14 @@
 import React, { useState, useContext } from 'react';
 import config from '../config/config';
 import Axios from 'axios';
-import './scss/form.scss';
 
 // Context
 import NotificationContext from '../context/notification/NotificationContext';
+
+// Components
+import FormSection from "../components/form/FormSection";
+import FormFile from "../components/form/FormFile";
+import FormPercentage from "../components/form/FormPercentage";
 
 interface IUploadPercentage {
 	display: boolean;
@@ -144,82 +148,56 @@ const AddProduct = () => {
 	};
 
 	return (
-		<form className="iw_form" onSubmit={sendProduct}>
-			<div className="formSection">
-				<label>Product Name</label>
-				<input type="text" placeholder="Product Name..." name="product_name" />
-			</div>
+		<form className="bg-gray-700 w-11/12 max-w-450px py-7 flex flex-col items-center text-center text-lg mx-auto" onSubmit={sendProduct}>
 
-			<div className="formSection">
-				<label>Product Price</label>
-				<input
-					type="text"
-					placeholder="Product Price..."
-					name="product_price"
-				/>
-			</div>
+			<FormSection
+				title="Product Name"
+				type="text"
+				name="product_name"
+				isPassword={false}
+			/>
 
-			<div className="formSection">
-				<label>Product Img</label>
-				<div className="formFile">
-					<label htmlFor="inputFile0">IMG</label>
-					<span>
-						{fileName.productImg.length >= 13 &&
-						fileName.productImg !== defaultFileNameValues.productImg
-							? fileName.productImg.substring(0, 13) + '...'
-							: fileName.productImg}
-					</span>
-					<input
-						id="inputFile0"
-						type="file"
-						name="productImg"
-						onChange={handleInputFile}
-						style={{ display: 'none' }}
-					/>
-				</div>
-			</div>
+			<FormSection 
+				title="Product Price"
+				type="text"
+				name="product_price"
+				isPassword={false}
+			/>
 
-			<div className="formSection">
-				<label>Product File</label>
-				<div className="formFile">
-					<label htmlFor="inputFile1">File</label>
-					<span>
-						{fileName.productFile.length >= 13 &&
-						fileName.productFile !== defaultFileNameValues.productFile
-							? fileName.productFile.substring(0, 13) + '...'
-							: fileName.productFile}
-					</span>
-					<input
-						id="inputFile1"
-						type="file"
-						name="productFile"
-						onChange={handleInputFile}
-						style={{ display: 'none' }}
-					/>
-				</div>
-			</div>
+			<FormFile
+				id="inputFile0"
+				title="Product Img"
+				file="IMG"
+				fileName={fileName.productImg}
+				defaultName="Select img"
+				name="productImg"
+				onChange={handleInputFile}
 
-			<div
-				className="formPercentage"
-				style={{ display: uploadPercentage.display ? 'block' : 'none' }}
-			>
-				<div className="bar">
-					<div
-						className="current"
-						style={{ width: `${uploadPercentage.percentage}%` }}
-					></div>
-				</div>
-			</div>
+			/>
 
-			<div className="formSection">
-				<label>Product Description</label>
-				<textarea
-					placeholder="Product Description...."
-					name="product_description"
-				></textarea>
-			</div>
+			<FormFile 
+				id="inputFile1"
+				title="Product File"
+				file="File"
+				fileName={fileName.productFile}
+				defaultName="Select file"
+				name="productFile"
+				onChange={handleInputFile}
+			/>
 
-			<button type="submit">Add Product</button>
+			<FormPercentage 
+				display={uploadPercentage.display}
+				percentage={uploadPercentage.percentage}
+			/>
+
+			<FormSection
+				title="Product Description"
+				type="textarea"
+				name="product_description"
+				isPassword={false}
+			/>
+
+			<button className="border-2 border-green-400 w-5/6 h-10 hover:bg-green-400 hover:text-black focus:outline-none" type="submit">Add Product</button>
 		</form>
 	);
 };

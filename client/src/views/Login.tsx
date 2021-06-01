@@ -1,10 +1,11 @@
 import React, { useState, useContext } from 'react';
 import config from '../config/config';
 import Axios from 'axios';
-import './scss/form.scss';
 
 // Context
 import NotificationContext from '../context/notification/NotificationContext';
+
+import FormSection from '../components/form/FormSection';
 
 const Login = () => {
 	const { showNotification } = useContext(NotificationContext);
@@ -17,7 +18,8 @@ const Login = () => {
 		e.preventDefault();
 		const formData = new FormData(e.currentTarget);
 
-		if (!formData.get('username')) return showNotification("error", "Insert your username");
+		if (!formData.get('username'))
+			return showNotification('error', 'Insert your username');
 		else if (!formData.get('password'))
 			return showNotification('error', 'Insert your password');
 
@@ -46,29 +48,24 @@ const Login = () => {
 	};
 
 	return (
-		<form className="iw_form" onSubmit={loggin}>
-			<div className="formSection">
-				<label>Username or Email</label>
-				<input type="text" placeholder="Username or Email" name="username" />
-			</div>
+		<form className="bg-gray-700 w-11/12 max-w-450px py-7 flex flex-col items-center text-center text-lg mx-auto" onSubmit={loggin}>
+			<FormSection
+				title="Username or Email"
+				type="text"
+				name="username"
+				isPassword={false}
+			/>
 
-			<div className="formSection">
-				<label>Password</label>
+			<FormSection
+				title="Password"
+				type={showPassword ? 'text' : 'password'}
+				name="password"
+				className={showPassword ? config.EYE.unhidde : config.EYE.hidde}
+				onClick={handlePassword}
+				isPassword={true}
+			/>
 
-				<div className="inputPassword">
-					<input
-						type={showPassword ? 'text' : 'password'}
-						placeholder="Password..."
-						name="password"
-					/>
-					<i
-						className={showPassword ? config.EYE.unhidde : config.EYE.hidde}
-						onClick={handlePassword}
-					></i>
-				</div>
-			</div>
-
-			<button type="submit">Log In</button>
+			<button className="border-2 border-green-400 w-5/6 h-10 hover:bg-green-400 hover:text-black focus:outline-none" type="submit">Log In</button>
 		</form>
 	);
 };

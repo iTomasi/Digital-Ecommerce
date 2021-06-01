@@ -82,13 +82,25 @@ const MB_HEADER = () => {
 				</div>
 			</div>
 
-			<div className={`bg-black w-full ${displayNav ? "flex" : "hidden"} flex-col items-center`}>
+			<div
+				className={`bg-black w-full ${
+					displayNav ? 'flex' : 'hidden'
+				} flex-col items-center`}
+			>
 				{userDatas.token.id === '0' ? (
 					<div className="flex justify-between w-3/4 max-w-220px my-4">
-						<button className="bg-white text-black py-1 px-3 rounded text-xl focus:outline-none" type="button" onClick={() => history.push('/sign-in')}>
+						<button
+							className="bg-white text-black py-1 px-3 rounded text-xl focus:outline-none"
+							type="button"
+							onClick={() => history.push('/sign-in')}
+						>
 							Sign In
 						</button>
-						<button className="bg-white text-black py-1 px-3 rounded text-xl focus:outline-none" type="button" onClick={() => history.push('/sign-up')}>
+						<button
+							className="bg-white text-black py-1 px-3 rounded text-xl focus:outline-none"
+							type="button"
+							onClick={() => history.push('/sign-up')}
+						>
 							Sign Up
 						</button>
 					</div>
