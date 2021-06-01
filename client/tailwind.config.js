@@ -5,7 +5,9 @@ module.exports = {
     extend: {},
     screens: {
       "desktop": "850px",
-      "mobile": {"min": "1px", "max": "849px"}
+      "mobile": {"min": "1px", "max": "849px"},
+      "grid-3": "550px",
+      "grid-4": "1000px"
     },
 
     maxWidth: {

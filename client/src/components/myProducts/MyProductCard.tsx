@@ -3,7 +3,6 @@ import fileDownload from 'js-file-download';
 import path from 'path';
 import config from '../../config/config';
 import Axios from 'axios';
-import './scss/myProductCard.scss';
 
 // Context
 import DownloadContext from "../../context/downloadBar/DownloadContext";
@@ -26,7 +25,7 @@ const MyProductCard = ({ id, img, name, file }: IProductCard) => {
 
 			if (
 				(innerWidth > 0 && innerWidth <= 425) ||
-				(innerWidth >= 550 && innerWidth <= 620)
+				(innerWidth >= 550 && innerWidth <= 700)
 			) {
 				return setDownloadMessage('DL..');
 			}
@@ -68,18 +67,19 @@ const MyProductCard = ({ id, img, name, file }: IProductCard) => {
 	};
 
 	return (
-		<div className="myProductCard">
+		<div className="flex flex-col items-center text-lg bg-gray-700 pb-3">
 			<img
+				className="w-full h-80"
 				src={config.HOST.BACK_END + '/img?folder=products&file=' + img}
 				alt={name}
 			/>
 
-			<div className="info">
-				<h3>{name}</h3>
+			<div className="w-full flex flex-col items-center">
+				<h3 className="my-3 text-center">{name}</h3>
 
-				<div className="buttons">
-					<button type="button">Info</button>
-					<button type="button" onClick={downloadFile}>
+				<div className="flex justify-between w-11/12">
+					<button className="h-8 bg-white text-black focus:outline-none cursor-pointer rounded text-base w-5/12" type="button">Info</button>
+					<button className="h-8 bg-white text-black focus:outline-none cursor-pointer rounded text-base w-5/12" type="button" onClick={downloadFile}>
 						{downloadMessage}
 					</button>
 				</div>

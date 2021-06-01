@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import './scss/products.scss';
 
 // Context
 import ProductContext from '../context/product/ProductContext';
@@ -19,7 +18,7 @@ const Products = () => {
 
 	return (
 		<div className="products">
-			<div className="grid">
+			<div className="grid grid-cols-2 justify-center gap-5 grid-3:grid-cols-3 grid-4:grid-cols-4">
 				{products.map((product: any, index: any) => (
 					<ProductCard
 						key={index}
