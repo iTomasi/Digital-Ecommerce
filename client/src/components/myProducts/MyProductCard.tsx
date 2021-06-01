@@ -1,11 +1,12 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import fileDownload from 'js-file-download';
 import path from 'path';
 import config from '../../config/config';
 import Axios from 'axios';
 
 // Context
-import DownloadContext from "../../context/downloadBar/DownloadContext";
+import DownloadContext from '../../context/downloadBar/DownloadContext';
 
 interface IProductCard {
 	id: string;
@@ -15,7 +16,9 @@ interface IProductCard {
 }
 
 const MyProductCard = ({ id, img, name, file }: IProductCard) => {
-	const {startDownload, isDownloading, updatePercentage, finishDownload} = useContext(DownloadContext);
+	const history = useHistory();
+	const { startDownload, isDownloading, updatePercentage, finishDownload } =
+		useContext(DownloadContext);
 
 	const [downloadMessage, setDownloadMessage] = useState<string>('Download');
 
@@ -41,7 +44,7 @@ const MyProductCard = ({ id, img, name, file }: IProductCard) => {
 		const userDownloadingFile = isDownloading();
 
 		if (userDownloadingFile) {
-			console.log("Wait, you are downloading a file first");
+			console.log('Wait, you are downloading a file first');
 			return;
 		}
 
@@ -54,11 +57,11 @@ const MyProductCard = ({ id, img, name, file }: IProductCard) => {
 				const getPercentage = Math.round((e.loaded * 100) / e.total);
 
 				if (!userDownloadingFile) {
-					startDownload(name + path.extname(file))
+					startDownload(name + path.extname(file));
 				}
 
-				updatePercentage(getPercentage)
-			}
+				updatePercentage(getPercentage);
+			},
 		});
 		finishDownload();
 		if (res.data.size === 41) return;
@@ -78,8 +81,18 @@ const MyProductCard = ({ id, img, name, file }: IProductCard) => {
 				<h3 className="my-3 text-center">{name}</h3>
 
 				<div className="flex justify-between w-11/12">
-					<button className="h-8 bg-white text-black focus:outline-none cursor-pointer rounded text-base w-5/12" type="button">Info</button>
-					<button className="h-8 bg-white text-black focus:outline-none cursor-pointer rounded text-base w-5/12" type="button" onClick={downloadFile}>
+					<button
+						className="h-8 bg-white text-black focus:outline-none cursor-pointer rounded text-base w-5/12"
+						type="button"
+						onClick={() => history.push('/product/' + id)}
+					>
+						Info
+					</button>
+					<button
+						className="h-8 bg-white text-black focus:outline-none cursor-pointer rounded text-base w-5/12"
+						type="button"
+						onClick={downloadFile}
+					>
 						{downloadMessage}
 					</button>
 				</div>

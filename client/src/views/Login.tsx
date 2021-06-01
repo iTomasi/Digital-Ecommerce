@@ -48,7 +48,10 @@ const Login = () => {
 	};
 
 	return (
-		<form className="bg-gray-700 w-11/12 max-w-450px py-7 flex flex-col items-center text-center text-lg mx-auto" onSubmit={loggin}>
+		<form
+			className="bg-gray-700 w-11/12 max-w-450px py-7 flex flex-col items-center text-center text-lg mx-auto"
+			onSubmit={loggin}
+		>
 			<FormSection
 				title="Username or Email"
 				type="text"
@@ -65,7 +68,12 @@ const Login = () => {
 				isPassword={true}
 			/>
 
-			<button className="border-2 border-green-400 w-5/6 h-10 hover:bg-green-400 hover:text-black focus:outline-none" type="submit">Log In</button>
+			<button
+				className="border-2 border-green-400 w-5/6 h-10 hover:bg-green-400 hover:text-black focus:outline-none"
+				type="submit"
+			>
+				Log In
+			</button>
 		</form>
 	);
 };

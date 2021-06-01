@@ -1,16 +1,15 @@
 import React, { useContext, useRef } from 'react';
-import {useHistory} from "react-router-dom";
+import { useHistory } from 'react-router-dom';
 import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { StripeCardElementOptions } from '@stripe/stripe-js';
 import config from '../../config/config';
 import Axios from 'axios';
-import './scss/form.scss';
 
 // Context
 import ProductContext from '../../context/product/ProductContext';
-import SocketContext from "../../context/socket/SocketContext";
-import UserContext from "../../context/user/UserContext";
-import NotificationContext from "../../context/notification/NotificationContext";
+import SocketContext from '../../context/socket/SocketContext';
+import UserContext from '../../context/user/UserContext';
+import NotificationContext from '../../context/notification/NotificationContext';
 
 const cardElement_Options: StripeCardElementOptions = {
 	iconStyle: 'solid',
@@ -18,7 +17,6 @@ const cardElement_Options: StripeCardElementOptions = {
 		base: {
 			fontSize: '20px',
 			color: '#f9f9f9',
-			backgroundColor: '#0b0c10',
 		},
 	},
 };
@@ -30,15 +28,15 @@ const Form = () => {
 
 	const { productsBuy } = useContext(ProductContext);
 	const socket: any = useContext(SocketContext);
-	const {pushUserProductsAndResetCartProducts} = useContext(UserContext);
-	const {showNotification} = useContext(NotificationContext);
+	const { pushUserProductsAndResetCartProducts } = useContext(UserContext);
+	const { showNotification } = useContext(NotificationContext);
 
 	const addingProductPrice = () => {
 		let count = 0;
 
 		productsBuy.map((product: any) => {
-			return count += product.price
-		})
+			return (count += product.price);
+		});
 
 		return count;
 	};
@@ -75,13 +73,13 @@ const Form = () => {
 				}
 			);
 
-			if (res.data.message !== "Purchase made satisfactorily") return showNotification("error", res.data.message);
+			if (res.data.message !== 'Purchase made satisfactorily')
+				return showNotification('error', res.data.message);
 
-			socket.emit("cart:product:reset", "reset");
+			socket.emit('cart:product:reset', 'reset');
 			pushUserProductsAndResetCartProducts(productsBuy);
-			showNotification("success", res.data.message);
-			history.push("/my-products");
-
+			showNotification('success', res.data.message);
+			history.push('/my-products');
 		} catch (e) {
 			console.log(e);
 			console.log('handleForm() Error');
@@ -89,20 +87,31 @@ const Form = () => {
 	};
 
 	return (
-		<form className="stripe_form" onSubmit={handleForm}>
-			<div className="formSection">
-				<label>Name</label>
-				<input type="text" placeholder="Name..." name="name" />
-			</div>
-
-			<div className="formSection">
-				<CardElement
-					options={cardElement_Options}
-					className="stripe__cardElement"
+		<form
+			className="bg-gray-700 w-11/12 max-w-500px mx-auto flex flex-col items-center text-xl text-white py-5"
+			onSubmit={handleForm}
+		>
+			<div className="flex flex-col items-center mb-5 w-11/12">
+				<label className="mb-4">Name</label>
+				<input
+					className="bg-gray-900 w-full focus:outline-none p-2"
+					type="text"
+					placeholder="Name..."
+					name="name"
 				/>
 			</div>
 
-			<button type="submit">
+			<div className="flex flex-col items-center mb-5 w-11/12">
+				<CardElement
+					options={cardElement_Options}
+					className="bg-gray-900 p-2 w-full"
+				/>
+			</div>
+
+			<button
+				className="w-4/5 h-10 border-2 border-green-400 cursor-pointer hover:bg-green-400 hover:text-black"
+				type="submit"
+			>
 				Pay {totalPrice.current} {config.CURRENCY['USD']}
 			</button>
 		</form>

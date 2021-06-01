@@ -6,6 +6,7 @@ module.exports = {
     screens: {
       "desktop": "850px",
       "mobile": {"min": "1px", "max": "849px"},
+      "res450": "450px",
       "grid-3": "550px",
       "grid-4": "1000px",
       "res650": "650px"
@@ -15,6 +16,7 @@ module.exports = {
       "180px": "180px",
       "220px": "220px",
       "450px": "450px",
+      "500px": "500px",
       "1200px": "1200px",
       "350px": "350px",
       "900px": "900px"

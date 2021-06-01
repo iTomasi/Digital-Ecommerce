@@ -23,7 +23,7 @@ const MyProducts = () => {
 
 	return (
 		<div className="myProducts">
-			<h1>Products</h1>
+			<h1 className="text-center text-2xl mb-5">My Products</h1>
 			<div className="grid grid-cols-2 justify-center gap-5 grid-3:grid-cols-3 grid-4:grid-cols-4">
 				{userProducts.map((product: any, index: any) =>
 					!product ? (

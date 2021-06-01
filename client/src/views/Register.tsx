@@ -7,9 +7,9 @@ import Axios from 'axios';
 import NotificationContext from '../context/notification/NotificationContext';
 
 // Components
-import FormSection from "../components/form/FormSection";
-import FormFile from "../components/form/FormFile";
-import FormPercentage from "../components/form/FormPercentage";
+import FormSection from '../components/form/FormSection';
+import FormFile from '../components/form/FormFile';
+import FormPercentage from '../components/form/FormPercentage';
 
 interface IShowPassword {
 	password: boolean;
@@ -81,7 +81,7 @@ const Register = () => {
 		const email: any = formData.get('email');
 		const password: any = formData.get('password');
 		const confirm_password: any = formData.get('confirm_password');
-		const userImg: any = formData.get("userImg");
+		const userImg: any = formData.get('userImg');
 
 		if (username.length < 3)
 			return showNotification(
@@ -135,37 +135,38 @@ const Register = () => {
 	};
 
 	return (
-		<form className="bg-gray-700 w-11/12 max-w-450px py-7 flex flex-col items-center text-center text-lg mx-auto" onSubmit={sendingDatas}>
-
-			<FormSection 
+		<form
+			className="bg-gray-700 w-11/12 max-w-450px py-7 flex flex-col items-center text-center text-lg mx-auto"
+			onSubmit={sendingDatas}
+		>
+			<FormSection
 				title="Username"
 				type="text"
 				name="username"
 				isPassword={false}
 			/>
 
-			<FormSection 
-				title="Email"
-				type="text"
-				name="email"
-				isPassword={false}
-			/>
+			<FormSection title="Email" type="text" name="email" isPassword={false} />
 
 			<FormSection
 				title="Password"
-				type={showPassword.password ? "text" : "password"}
+				type={showPassword.password ? 'text' : 'password'}
 				name="password"
 				isPassword={true}
-				className={showPassword.password ? config.EYE.unhidde : config.EYE.hidde}
+				className={
+					showPassword.password ? config.EYE.unhidde : config.EYE.hidde
+				}
 				onClick={handlePassword}
 			/>
-			
-			<FormSection 
+
+			<FormSection
 				title="Confirm Password"
-				type={showPassword.confirm_password ? "text" : "password"}
+				type={showPassword.confirm_password ? 'text' : 'password'}
 				name="confirm_password"
 				isPassword={true}
-				className={showPassword.confirm_password ? config.EYE.unhidde :config.EYE.hidde}
+				className={
+					showPassword.confirm_password ? config.EYE.unhidde : config.EYE.hidde
+				}
 				onClick={handlePassword}
 			/>
 
@@ -184,7 +185,12 @@ const Register = () => {
 				percentage={uploadPercentage.percentage}
 			/>
 
-			<button className="border-2 border-green-400 w-5/6 h-10 hover:bg-green-400 hover:text-black focus:outline-none" type="submit">Register</button>
+			<button
+				className="border-2 border-green-400 w-5/6 h-10 hover:bg-green-400 hover:text-black focus:outline-none"
+				type="submit"
+			>
+				Register
+			</button>
 		</form>
 	);
 };
