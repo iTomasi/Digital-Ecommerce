@@ -1,5 +1,4 @@
 import React, { useContext, useEffect } from 'react';
-import './scss/cart.scss';
 
 // Context
 import UserContext from '../context/user/UserContext';
@@ -27,13 +26,13 @@ const Cart = () => {
 	}, [userDatas, products]);
 
 	return (
-		<div className="cart">
+		<div className="w-11/12 mx-auto">
 			<h1>My Cart</h1>
 
 			{cartProducts[0] === undefined ? (
 				<h1>No cart products</h1>
 			) : (
-				<div className="products">
+				<div>
 					{cartProducts.map((product: any, index: any) => (
 						<CartProductCard
 							key={index}

@@ -1,7 +1,6 @@
 import React, { useState, useContext, useEffect } from 'react';
 import {useHistory} from "react-router-dom";
 import config from '../../config/config';
-import './scss/cartBuyBtn.scss';
 
 // Context
 import ProductContext from '../../context/product/ProductContext';
@@ -23,12 +22,12 @@ const CartBuyBtn = () => {
 	}, [cartProducts]);
 
 	return (
-		<div className="cartBuyBtn">
-			<h3>
+		<div className="flex flex-col items-center text-xl">
+			<h3 className="mb-3">
 				Total Price: ${totalPrice} {config.CURRENCY['USD']}
 			</h3>
 
-			<button type="button" onClick={() => {
+			<button className="bg-white text-black w-8/12 max-w-xs h-12 cursor-pointer focus:outline-none" type="button" onClick={() => {
 				productsToBuy(cartProducts);
 				history.push("/checkout")
 			}}>Purchase Products</button>

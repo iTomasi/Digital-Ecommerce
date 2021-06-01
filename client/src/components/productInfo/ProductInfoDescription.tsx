@@ -1,6 +1,5 @@
 import React from 'react';
 import config from "../../config/config";
-import './scss/productInfoDescription.scss';
 
 interface IProductInfoDescription {
 	name: string;
@@ -16,10 +15,10 @@ const ProductInfoDescription = ({
 	children,
 }: IProductInfoDescription) => {
 	return (
-		<div className="productInfoDescription">
-			<h2 className="name">{name}</h2>
-			<p className="description">{description}</p>
-			<h3 className="price">${price} {config.CURRENCY["USD"]}</h3>
+		<div className="text-center py-3 w-5/6">
+			<h2 className="mb-3 text-2xl">{name}</h2>
+			<p className="mb-3 text-xl">{description}</p>
+			<h3 className="mb-3 text-xl">${price} {config.CURRENCY["USD"]}</h3>
 			{children}
 		</div>
 	);

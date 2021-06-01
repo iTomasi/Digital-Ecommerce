@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import { useHistory } from 'react-router-dom';
-import './scss/productInfoBtns.scss';
 
 // Context
 import ProductContext from '../../context/product/ProductContext';
@@ -27,18 +26,18 @@ const ProductInfoBtns = () => {
 	};
 
 	return (
-		<div className="productInfoBtns">
+		<div className="flex flex-col items-center w-full">
 			{userDatas.token.products.includes(productInfo._id) ? (
 				<h2>Product already bought</h2>
 			) : userDatas.token.cartProducts.includes(productInfo._id) ? (
 				<h2>Product already in your Cart</h2>
 			) : (
 				<>
-					<button type="button" onClick={handleBtnAddCart}>
+					<button className="bg-white text-black text-lg w-1/2 h-10 focus:outline-none cursor-pointer rounded" type="button" onClick={handleBtnAddCart}>
 						Add to Cart
 					</button>
-					<h3>Or</h3>
-					<button type="button" onClick={handleBtnBuyNow}>
+					<h3 className="my-3">Or</h3>
+					<button className="bg-white text-black text-lg w-1/2 h-10 focus:outline-none cursor-pointer rounded" type="button" onClick={handleBtnBuyNow}>
 						Buy Now
 					</button>
 				</>

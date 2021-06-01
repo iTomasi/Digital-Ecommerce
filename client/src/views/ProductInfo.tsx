@@ -1,6 +1,5 @@
 import React, { useEffect, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import './scss/productInfo.scss';
 
 // Context
 import ProductContext from '../context/product/ProductContext';
@@ -27,9 +26,9 @@ const ProductInfo = () => {
 	}, [products]);
 
 	return (
-		<div className="productInfo">
+		<div className="w-11/12 res650:max-w-900px mx-auto">
 			{productInfo._id !== '0' ? (
-				<div className="productInfo__content">
+				<div className="flex flex-col items-center bg-gray-700 res650:flex-row">
 					<ProductInfoImg img={productInfo.img} name={productInfo.name} />
 					<ProductInfoDescription
 						name={productInfo.name}
